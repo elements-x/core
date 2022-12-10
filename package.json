@@ -1,0 +1,23 @@
+{
+  "name": "@elements-x/core",
+  "description": "Custom Element Build Engine",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elements-x/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elements-x/core/issues"
+  },
+  "homepage": "https://github.com/elements-x/core#readme",
+  "author": "allenhwkim@gmail.com",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "node-sass": "^8.0.0",
+    "ts-node": "^10.9.1"
+  }
+}
