@@ -1,5 +1,7 @@
-import { addCss, removeCss, setAttributes, setProps, renderHTML } from './util';
+import { addCss, removeCss, setPropsFromAttributes, renderHTML } from './util';
 import { ICustomElement, ICustomElementProps } from './types';
+
+export { waitForScriptLoad } from './util';
 
 export function customElement(args: ICustomElementProps): any {
   function debug(...params) {
@@ -8,25 +10,31 @@ export function customElement(args: ICustomElementProps): any {
 
   class CustomElement extends HTMLElement implements ICustomElement {
     _props: {[key: string]: any} = {}; // properties including attribute values
+    _timer: any; // timer not to render too many times
 
-    async _render(args) {
+    async _render(args, runRenderCallback=false) {
       if (args.preCondition) {
         debug(this.tagName, 'await args.preCondition()');
         await args.preCondition();
       }
 
-      try {
-        if (args.html) {
-          debug(this.tagName, 'rendering html', {html: args.html});
-          renderHTML(this, args.html);
+      const render = () => {
+        try {
+          if (args.html) {
+            debug(this.tagName, 'rendering html', {html: args.html});
+            renderHTML(this, args.html);
+          }
+          if (args.render && runRenderCallback) {
+            debug(this.tagName, 'executing render function', args.render);
+            args.render.bind(this)(args);
+          }
+        } catch (e) {
+          this.innerHTML = e;
         }
-        if (args.render) {
-          debug(this.tagName, 'executing render function', args.render);
-          args.render.bind(this)(args);
-        }
-      } catch (e) {
-        this.innerHTML = e;
       }
+
+      clearTimeout(this._timer); // the same as debounce 10ms. Only the last one runs
+      this._timer = setTimeout(render, 10);
     }
 
     static get observedAttributes() {
@@ -52,16 +60,28 @@ export function customElement(args: ICustomElementProps): any {
       if (args.attrs) {
         debug('CustomElement.observedAttributes', CustomElement.observedAttributes);
         debug(this.tagName, 'setAttributes(this, args.attrs)');
-        setAttributes(this, args.attrs);
+        setPropsFromAttributes(this, args.attrs);
       }
 
       if (args.props) {
-        debug(this.tagName, 'setProps(this, args.props');
-        setProps(this, args.props);
+        debug(this.tagName, 'setting props');
+        for (let key in args.props) {
+          Object.defineProperty(this, key, {
+            get() {
+              return this._props[key];
+            },
+            set(value) {
+              debug(this.tagName, 'setting prop', key, value);
+              this._props[key] = value;
+              this._render(args, false);
+            }
+          });
+          this[key] = args.props[key];
+        } 
       }
 
       if (args.html) {
-        this._render(args);
+        this._render(args, true);
       }
 
       args.connectedCallback?.bind(this)();
@@ -79,11 +99,10 @@ export function customElement(args: ICustomElementProps): any {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-      if (oldValue !== null) { // not for initial, e.g., null -> xxx
-        debug(this.tagName, 'attributeChangedCallback 2', name, oldValue, newValue);
-        this._render(args);
-        args.attributeChangedCallback?.bind(this)(name, oldValue, newValue);
-      }
+      this._props[name] = newValue;
+      this._render(args, false);
+      debug(this.tagName, 'attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);
+      args.attributeChangedCallback?.bind(this)(name, oldValue, newValue);
     }
   };
 
