@@ -1,3 +1,2 @@
-export { customElement } from './custom-element';
-
-// export { customElement };
+export * from './custom-element';
+export * from './types';

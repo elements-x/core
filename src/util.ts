@@ -1,4 +1,7 @@
-export function setStyle(el: HTMLElement | string, css: string) {
+import * as Handlebars from 'handlebars';
+import { ICustomElement, ICustomElementProps } from "./types";
+
+export function addCss(el: ICustomElement | string, css: string) {
   const tagName = typeof el === 'string' ? el : el.tagName.toLowerCase();
   const styleEl = document.querySelector(`style[${tagName}]`);
   if (!styleEl) {
@@ -9,21 +12,7 @@ export function setStyle(el: HTMLElement | string, css: string) {
   }
 }
 
-export function setAttributes(el: HTMLElement, attrs: any) {
-  for (var key in attrs) {
-    const attr = attrs[key];
-    const value = 
-      attr.type === 'number' ? +attr.value : 
-      attr.type === 'boolean' ? attr.value === true : 
-      attr.type === 'string' ? '' + attr.value  :
-      attr.type === 'function' ? attr.value.bind(el)() : attr;
-
-    el['props'][key] = value;
-    el.setAttribute(key, value);
-  }
-}
-
-export function removeCss(el: HTMLElement) {
+export function removeCss(el: ICustomElement) {
   const tagName = el.tagName.toLowerCase();
   const type = tagName === 'x-input' && el.getAttribute('type');
   const typeSuffix = type ? `-${type}` : ''; 
@@ -35,40 +24,49 @@ export function removeCss(el: HTMLElement) {
   } 
 }
 
-export function getHtmlError(html:string, paramNoCheckTags?:string): string | void {
-  const defaultCheckTags = 'script,style,pre,x-pre,x-ace,x-highlightjs'.split(',');
-  const noCheckTags = defaultCheckTags.concat(paramNoCheckTags || ''); 
-  const parser = new DOMParser();
-  // remove valid html, but non-valid xml tags with its contents, e.g., script, pre, style &nbsp;
-  let htmlForParser = `<xml>${html}</xml>` // Can't user html parser, which auto-correct contents
-    .replace(/(src|href)=".*?"/g, '$1="OMITTED"')
-    .replace(/&nbsp;/g, '&#160;');
-  
-  noCheckTags.forEach(tagName => {
-    const regExp = new RegExp(`<${tagName}[\\s\\S]+?<\\/${tagName}>`, 'gm');
-    htmlForParser = htmlForParser.replace(regExp, `<${tagName}>OMITTED</${tagName}>`);
-  });
-  
-  // remove empty attributes, which is invalid for XML parser
-  htmlForParser = htmlForParser
-    .replace(/(<[a-z-]+.*?)(\s[a-z][a-z-]+\s)(.*?\/?\s?>)/gm, '$1 $3')
-    .replace(/(<[a-z-]+.*?)(\s[a-z][a-z-]+)(\/?\s?>)/gm, '$1 $3');
+export function setProps(el: ICustomElement, args: ICustomElementProps) {
+  for (let key in args.props) {
+    Object.defineProperty(el, key, {
+      get() {
+        return el._props[key];
+      },
+      set(value) {
+        el._props[key] = value;
+        el._render(args);
+      }
+    });
+    el._props[key] = args.props[key];
+  } 
+}
 
-  const doc = parser.parseFromString(htmlForParser, 'text/xml');
-  if (doc.documentElement.querySelector('parsererror')) {
-    console.error(htmlForParser.split(/\n/).map( (el, ndx) => `${ndx+1}: ${el}`).join('\n'));
-    return doc.documentElement.querySelector('parsererror')?.innerHTML;
+export function setAttributes(el: ICustomElement, attrs: any) {
+  for (var key in attrs) {
+    const attr = attrs[key];
+    const value = 
+      attr.type === 'number' ? +attr.value : 
+      attr.type === 'boolean' ? attr.value === true : 
+      attr.type === 'string' ? '' + attr.value  :
+      attr.type === 'function' ? attr.value.bind(el)() : attr;
+
+    el._props[key] = value;
+    el.setAttribute(key, value);
   }
 }
 
-export function renderHTML(el: HTMLElement, newHtml: string, orgHtml: string) {
-  const parseError = getHtmlError(newHtml);
-  if (parseError) {
-    throw parseError;
-  }
+export function renderHTML(el: ICustomElement, newHtml: string) {
+  const orgHtml = el._props.orgInnerHTML;
+  const templateHtml = Handlebars.compile(newHtml)(el._props);
+  const html = templateHtml.indexOf('</slot>') ?  templateHtml.replace('<slot></slot>', orgHtml) : templateHtml;
+  console.log('renderHTML', html)
 
-  el.innerHTML = '';
-  el.innerHTML = newHtml.indexOf('</slot>') ?  newHtml.replace('<slot></slot>', orgHtml) : newHtml;
+  // Convert HTML to a valid HTML to make it sure not to break the hosting document
+  const doc = (new DOMParser()).parseFromString(html, 'text/html');
+  Array.from(doc.head.children).forEach(child => {
+    el.insertAdjacentElement('beforeend', child);
+  })
+  if (doc.body.innerHTML) {
+    el.insertAdjacentHTML('beforeend', doc.body.innerHTML);
+  }
 
   // execute script tags
   el.querySelectorAll('script').forEach( (old: HTMLScriptElement) => {
