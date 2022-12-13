@@ -27,12 +27,13 @@ export function removeCss(el: ICustomElement) {
 export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
   for (var key in attrs) {
     const attrDef = attrs[key];
-    const attrValue = el.getAttribute(key);
+    const attrName = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    const attrValue = el.getAttribute(attrName);
     const defaultValue = attrValue || attrDef.value;
 
     const value = // type conversion
       attrDef.type === 'number' ? +defaultValue : 
-      attrDef.type === 'boolean' ? defaultValue === true : 
+      attrDef.type === 'boolean' ? attrValue !== null ? true : !!attrDef.value : 
       attrDef.type === 'string' ? '' + defaultValue  :
       attrDef.type === 'function' ? defaultValue.bind(el)() :
       attrDef.type === undefined ? attrValue || attrDef : 
@@ -43,7 +44,7 @@ export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
 }
 
 export function renderHTML(el: ICustomElement, newHtml: string) {
-  const orgHtml = el._props.orgInnerHTML;
+  const orgHtml = el._props.orgInnerHTML as string;
   const templateHtml = Handlebars.compile(newHtml)(el._props);
   const html = templateHtml.indexOf('</slot>') ?  templateHtml.replace('<slot></slot>', orgHtml) : templateHtml;
 
@@ -82,17 +83,23 @@ export function waitForScriptLoad(id, scripts: string[]): Promise<any> {
         else if (waited > 3000)  reject();
         else {
           scripts.forEach(scriptSrc => {
-            if (scriptSrc.endsWith('.js') && !document.querySelector('script#'+id.toLowerCase())) {
-              const el = document.createElement('script');
-              el.setAttribute('id', id.toLowerCase());
-              el.setAttribute('src', scriptSrc);
-              document.head.appendChild(el);
+            if (scriptSrc.endsWith('.js')) {
+              if (!document.querySelector(`script[data-id=${id.toLowerCase()}]`)) {
+                const el = document.createElement('script');
+                el.setAttribute('data-id', id.toLowerCase()); // why data-id?, with id, window.<id> returns an element first
+                el.setAttribute('src', scriptSrc);
+                document.head.appendChild(el);
+              }
             } else if (scriptSrc.endsWith('.css')) {
-              const el = document.createElement('link');
-              el.setAttribute('id', id.toLowerCase());
-              el.setAttribute('rel', 'stylesheet');
-              el.setAttribute('href', scriptSrc);
-              document.head.appendChild(el);
+              if (!document.querySelector(`link[data-id=${id.toLowerCase()}]`)) {
+                const el = document.createElement('link');
+                el.setAttribute('data-id', id.toLowerCase());
+                el.setAttribute('rel', 'stylesheet');
+                el.setAttribute('href', scriptSrc);
+                document.head.appendChild(el);
+              }
+            } else {
+              throw `${scriptSrc} must ends with .js or .css`;
             }
           })
           setTimeout(waitForCondition, 300);

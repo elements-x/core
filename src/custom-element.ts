@@ -11,30 +11,36 @@ export function customElement(args: ICustomElementProps): any {
   class CustomElement extends HTMLElement implements ICustomElement {
     _props: {[key: string]: any} = {}; // properties including attribute values
     _timer: any; // timer not to render too many times
+    _connected: boolean; // true after connectedCallback()
 
-    async _render(args, runRenderCallback=false) {
-      if (args.preCondition) {
-        debug(this.tagName, 'await args.preCondition()');
-        await args.preCondition();
-      }
-
+    // connectedCallback if args.html ... once       .. renderHTML / args.render()
+    // attributeChangedCallback       ... many times .. renderHTML
+    // set()                          ... many times .. renderHTML
+    async render(args, runArgsRender?) {
       const render = () => {
         try {
           if (args.html) {
             debug(this.tagName, 'rendering html', {html: args.html});
             renderHTML(this, args.html);
           }
-          if (args.render && runRenderCallback) {
+          /**
+           * when args.render function sets property of this object
+           * e.g. this.myProp = 'blah', and property set also calls this.render()
+           * which makes loop condition. args.render() -> set() -> render() -> args.render()
+           * thus, check if render() is called from set(), do not run args.render()
+           */
+          if (args.render && runArgsRender) {
             debug(this.tagName, 'executing render function', args.render);
             args.render.bind(this)(args);
           }
         } catch (e) {
+          throw e;
           this.innerHTML = e;
         }
       }
 
       clearTimeout(this._timer); // the same as debounce 10ms. Only the last one runs
-      this._timer = setTimeout(render, 10);
+      this._timer = setTimeout(render, 50);
     }
 
     static get observedAttributes() {
@@ -47,10 +53,15 @@ export function customElement(args: ICustomElementProps): any {
       args.constructor?.bind(this)();
     }
 
-    connectedCallback() {
+    async connectedCallback() {
       debug(this.tagName, 'Running connectedCallback()');
 
       this._props.orgInnerHTML = this.innerHTML;
+
+      if (args.preCondition) {
+        debug(this.tagName, 'await args.preCondition()');
+        await args.preCondition();
+      }
 
       if (args.css) {
         debug(this.tagName, 'addCss(this, args.css)');
@@ -66,25 +77,34 @@ export function customElement(args: ICustomElementProps): any {
       if (args.props) {
         debug(this.tagName, 'setting props');
         for (let key in args.props) {
+          const prop = args.props[key]; // e.g., 123, or {get: Function, set: Function}
           Object.defineProperty(this, key, {
             get() {
-              return this._props[key];
+              if (prop?.get) {
+                // todo, return get function();
+              } else {
+                return this._props[key];
+              }
             },
             set(value) {
               debug(this.tagName, 'setting prop', key, value);
-              this._props[key] = value;
-              this._render(args, false);
-            }
+              if (prop?.set) {
+                // todo, set from funcion return
+              } else {
+                this._props[key] = value;
+                this.render(args);            }
+              }
           });
           this[key] = args.props[key];
         } 
       }
 
       if (args.html) {
-        this._render(args, true);
+        this.render(args, true);
       }
 
       args.connectedCallback?.bind(this)();
+      this._connected = true;
     }
 
     disconnectedCallback() {
@@ -100,9 +120,11 @@ export function customElement(args: ICustomElementProps): any {
 
     attributeChangedCallback(name, oldValue, newValue) {
       this._props[name] = newValue;
-      this._render(args, false);
-      debug(this.tagName, 'attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);
-      args.attributeChangedCallback?.bind(this)(name, oldValue, newValue);
+      if (this._connected && (oldValue !== newValue)) {
+        debug(this.tagName, 'attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);
+        args.attributeChangedCallback?.bind(this)(name, oldValue, newValue);
+        this.render(args);
+      }
     }
   };
 

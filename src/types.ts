@@ -1,6 +1,6 @@
 type AttrValue = string | {
   type: 'number' | 'string' | 'boolean' | 'function', 
-  value: number | boolean | string | Function
+  value?: number | boolean | string | Function
 };
 
 export interface ICustomElementProps {
@@ -15,13 +15,13 @@ export interface ICustomElementProps {
   disconnectedCallback?: Function; // element is removed to the document
   adoptedCallback?: Function; // element is transferred to a new document
   attributeChangedCallback?: Function; // (name: string, oldValue: string, newValue: string); // Invoked when attribute is changed
-  render?: Function; // Invoked after each rendering
+  render?: Function; // Invoked after each rendering, 
   debug?: boolean;
 }
 
 export interface ICustomElement extends HTMLElement {
-  _props: { [key: string]: any };
-  _render(args: any);
+  _props: { [key: string]: number | boolean | string | Function };
+  render(args: any, callstack?: string[]);
   adoptedCallback();
   attributeChangedCallback(name: string, oldValue: string, newValue: string);
   connectedCallback();
