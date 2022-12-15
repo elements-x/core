@@ -1,6 +1,5 @@
 # Title
 
-clock
 map (w/ open-layers)
 pagination
 select

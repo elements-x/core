@@ -13,9 +13,7 @@ customElement({
   <label class="x-file-input">
     <input type="file" multiple />
     <div class="x-slot">
-      <slot>
-        Click, copy/paste files, or drag/drop files here.  The selected files are displayed below.
-      </slot>
+      <slot>Click, copy/paste files, or drag/drop files here.  The selected files are displayed below.</slot>
     </div>
   </label>
   <div class="x-file-list"></div>
@@ -91,7 +89,6 @@ function showFile(file) {
     `<div class="x-preview">${imgEl}(${formatSize(file.size)})</div>` +
     `<div class="x-buttons">` +
       `<button class="x-delete">🗑</button>` +
-      `<button class="x-upload">⇧</button>` +
     `</div>` +
     `<div class="x-progress"></div>`
   );
@@ -99,7 +96,6 @@ function showFile(file) {
     this.files.splice(this.files.indexOf(file), 1);
     (event.target as HTMLElement).closest('.x-file').remove();
     this.dispatchEvent(new CustomEvent('x-select', {bubbles: true, detail: this.files}));
-    console.log('>>>>>>>>>>>', this.inputEl.files)
   });
 
   this.querySelector('.x-file-list').appendChild(fileEl);
@@ -113,7 +109,7 @@ function formatSize(bytes, decimalPoint = 2) {
 }
 
 export const File = () => `
-  <x-file>
-
-  </x-file>
+  <x-file></x-file>
+  <br/><br/>
+  <x-file>Click, copy/paste files, or drag/drop files here.</x-file>
 `

@@ -82,6 +82,13 @@ function onDrag(event) {
   updateMinuteHand(this);
 }
 
+const hour = new Date().getUTCHours();
+const minute = new Date().getUTCMinutes();
+
 export const File = () => `
-  <x-clock run></x-clock>
+  <x-clock></x-clock>
+  <x-clock run hour="${hour}" minute="${minute}">London</x-clock>
+  <x-clock run>Toronto</x-clock>
+  <x-clock run hour="${hour + 9}" minute="${minute}">Seoul</x-clock>
+  <x-clock run hour="${hour - 8}" minute="${minute}">Vancouver</x-clock>
 `
