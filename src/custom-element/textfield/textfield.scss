@@ -1,0 +1,78 @@
+x-textfield  {
+  position:  relative;
+  display:  inline-block;
+  padding:  1em 8px 0 4px;
+  border-bottom:  1px  solid#CCC;
+  background: #F8F8F8;
+
+  /** 
+   * label(w/value), input(w/ value)
+   */
+  .label {
+    position:  absolute;
+    pointer-events: none; 
+    box-sizing: border-box;
+    cursor:  text;
+    user-select:  none;
+    left: 4px;
+    background: #FFF;
+    width: 100%;
+    z-index: 1;
+    color: #888;
+    background: transparent;
+    transition:  0.2s  ease  all;
+    top: 2px;
+    font-size: 12px;
+  }
+
+  input  {
+    width: 100%;
+    outline:  none;
+    border:  none;
+    height: 26px;
+    font-size: 1em;
+    background: transparent;
+  }
+
+  .ink-bar  {  /*  hidden  2px  line  */
+    position:  absolute;
+    bottom:  0;
+    left:  calc(50% - 5px);
+    height:  2px;
+    width:  10px;
+    visibility:  hidden;
+    background-color:#8e44ad;
+  }
+
+  &:has(input:focus) .ink-bar  {  /*  2px  100%  line  */
+    left: 0;
+    width:  100%;
+    visibility:  visible;
+    transition:  0.2s  ease  all;
+  }
+
+  /** 
+   * label(w/value), input(:placeholder-shown), empty
+   */
+  &:has(input:placeholder-shown[placeholder=" "]):has(input:not(:focus)) {
+    .label {
+      font-size: 16px;
+      top: 24px;
+    }
+    input {
+      opacity: 0;
+    }
+  }
+  // disabled
+  &:has(input:disabled) {
+    pointer-events: none; 
+    opacity: .5;
+  }
+
+  /**
+   * without label
+   */
+  &:not(:has(.label)) {
+    padding: 0 8px 0 4px;
+  }
+}

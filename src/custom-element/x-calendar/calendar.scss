@@ -1,0 +1,111 @@
+x-calendar {
+  display: inline-block;
+  border: 1px solid #CCC;
+  &.small {
+    width: 260px;
+  }
+
+  .x-header {
+    display: flex;
+    padding: 12px 8px;
+    font-weight: bold;
+    justify-content: center;
+
+    button {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      &.x-prev.icon:before { content: '◀'; } /* allowing overriding the icon */
+      &.x-today.icon:before { content: '●'; }
+      &.x-next.icon:before { content: '▶'; }
+    }
+
+    .x-month-year {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      position: relative;
+      .x-years {
+        margin-left: 12px;
+      }
+    }
+  }
+
+  /* weekdays section, e.g, mon,tue,wed */
+  .x-week-days-container {
+    display: flex;
+    padding: 0 4px;
+    .x-weekday {
+      background: #CCC;
+      width: calc(100%/7);
+      text-align: center;
+      border: 1px solid #FFF;
+      border-width: 0 1px;
+      padding: 4px;
+    }
+  }
+
+  .x-days-container { 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px 12px 4px;
+
+    .x-weekday,
+    .x-date {
+      line-height: 1.5em;
+      box-sizing: border-box;
+      width: calc(100%/7);
+      text-align: center;
+      margin: 0;
+
+      &[data-tooltip] {
+        border-bottom: 1px dotted transparent;
+      } 
+      &:has(.x-holiday):after {
+        content: attr(data-tooltip);
+        position: absolute;
+        color: #D13101;
+        font-size: x-small;
+      }
+
+      button {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        &:focus {
+          background-color: unset;
+          color: unset;
+          box-shadow:#3751B5 0 0 0 2px;
+        }
+        &:disabled {
+          color: unset;
+          opacity: .7;
+        }
+        &:not(.x-select).x-holiday {
+          color: #D13101;
+          font-weight: bold;
+        }
+        .x-holiday:after {
+          position: absolute;
+          content: attr(data-tooltip);
+          font-size: small;
+          color: #D13101;
+        }
+        &.x-current-date {
+          background-color: #EEE;
+          color: #333;
+          border-radius: 50%;
+        }
+        &.x-select {
+          background-color: #D13101;
+          color: #FFF;
+          border-radius: 50%;
+        }
+      }
+    }
+
+  }
+}

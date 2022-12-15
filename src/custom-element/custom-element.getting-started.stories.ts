@@ -1,5 +1,9 @@
 import { customElement  } from "./custom-element";
 
+export default {
+  title: 'customElement()/Getting Started'
+};
+
 customElement({
   debug: true,
   tagName: 'hello-custom-element',
@@ -20,11 +24,13 @@ customElement({
   props: {
     prop1: 0,
   },
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.render();
+  },
+  propsChangedCallback(key, value) {
+    this.render();
+  },
 });
-
-export default {
-  title: 'customElement()/Getting Started'
-};
 
 export const Default = () => `
   <hello-custom-element></hello-custom-element>

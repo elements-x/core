@@ -1,5 +1,12 @@
 # Title
 
+file
+mask
+clock
+map (w/ open-layers)
+pagination
+select
+ul
 ```Typescript
 defineX({ // returns a custom element
   name: 'my-custom', // custom element tag name
