@@ -26,16 +26,13 @@ module.exports = {
       },
     };
 
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: [
-        "raw-loader",
-        // "style-loader", // Creates `style` nodes from JS strings
-        // "css-loader",   // Translates CSS into CommonJS
-        "sass-loader",   // Compiles Sass to CSS
-      ],
-      include: path.resolve(__dirname, '../'),
-    });
+    config.module.rules.push([
+      { test: /\.scss$/, use: ['raw-loader', 'sass-loader']},
+      { test: /\.html$/, use: ['raw-loader']},
+      // sass-loader(Compiles Sass to CSS), css-loader(Translates CSS into CommonJS), 
+      // style-loader(Creates `style` nodes from JS strings), raw-loader(for string or binary)
+      // include: path.resolve(__dirname, '../'),
+    ]);
 
     return config;
   },
