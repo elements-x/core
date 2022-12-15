@@ -79,12 +79,16 @@ export function customElement(args: ICustomElementProps): any {
               get() { return prop.get.bind(this)(); },
               set(value) {
                 debug(this.tagName, 'setting prop set function', key, value, prop.set);
-                this._props[key] = prop.set.bind(this)(value);
+                prop.set.bind(this)(value);
                 if (args.propsChangedCallback && this._connected) {
                   debug(this.tagName, 'running args.propsChangedCallback');
                   args.propsChangedCallback.bind(this)(key, value);
                 }
               }
+            });
+          } else if (prop && prop.get) {
+            Object.defineProperty(this, key, {
+              get() { return prop.get.bind(this)(); },
             });
           } else { 
             Object.defineProperty(this, key, {

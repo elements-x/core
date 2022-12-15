@@ -20,22 +20,31 @@ customElement({
     <div class="ink-bar"></div>
   `,
   attrs: {
-    readonly: {type: 'boolean'},
-    value: '',
-    disabled: {type: 'boolean'},
     label: '',
-    placeholder: ' '
+    placeholder: ' ', // intentional one space to use :placeholder-shown
+    value: '', // this._props.value
+    readonly: {type: 'boolean'}, 
+    disabled: {type: 'boolean'},
   },
   props: {
-    value: el => el._props.value,
-    readonly: el => el._props.readonly,
-    disabled: el => el._props.disabled,
+    inputEl: {
+      get() {return this.querySelector('input')}
+    },
+    value: {
+      get() { return this.inputEl.value; },
+      set(value) { this.inputEl.value = value; }
+    },
+    readonly: {
+      get() { return this.inputEl.readonly; },
+      set(value) { this.inputEl.readonly = value; }
+    },
+    disabled: {
+      get() { return this.inputEl.disabled; },
+      set(value) { this.inputEl.disabled = value; }
+    },
   },
   attributeChangedCallback(name, oldV, newV) {
     this.render();
-  },
-  propsChangedCallback(name, value) {
-    this.querySelector('input')[name] = value;
   }
 })
 
