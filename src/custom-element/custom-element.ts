@@ -114,7 +114,6 @@ export function customElement(args: ICustomElementProps): any {
           const [eventName, selector] = key.split(':');
           const eventHandler = args.events[key];
           const eventSrc = selector ? this.querySelector(selector) : this;
-          console.log('>>>>>>>>>>>>>>>>', {eventSrc, selector})
           if (eventSrc) {
             eventSrc?.addEventListener(eventName, eventHandler.bind(this));
           }

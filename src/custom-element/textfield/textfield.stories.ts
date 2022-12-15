@@ -57,7 +57,7 @@ window['setProps'] = (arr) => arr.forEach((el) => {
   document.querySelector(selector)[name] = value;
 })
 
-export const AceEditor = () => `
+export const TextField = () => `
   <h3>With Label</h3>
   <x-textfield label="Label" value="Hello Textfield"></x-textfield> With value
   <br/><br/> <x-textfield label="Label"></x-textfield> When empty  

@@ -1,0 +1,44 @@
+x-file {
+  display: inline-block;
+  background: #F5F5F5;
+  padding: 16px;
+  border: 1px solid #F5F5F5;
+  box-sizing: border-box;
+  .x-file-input {
+    cursor: pointer;
+    input {
+      display: none;
+    }
+  }
+}
+x-file .x-file-list:not(:empty) {
+  padding-top: 12px;
+  .x-file { /* file info */
+    display: flex;
+    padding: 4px;
+    position: relative;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .x-name {
+      width: 40%;
+    }
+
+    .x-preview {
+      max-width: 200px;
+      max-height: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .x-buttons * {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+}

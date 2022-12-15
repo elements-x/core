@@ -1,7 +1,5 @@
 # Title
 
-file
-mask
 clock
 map (w/ open-layers)
 pagination
