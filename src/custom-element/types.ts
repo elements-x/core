@@ -1,5 +1,5 @@
 type AttrValue = string | {
-  type: 'number' | 'string' | 'boolean' | 'date' | 'function', 
+  type: any, 
   value?: number | boolean | string | Date | Function
 };
 

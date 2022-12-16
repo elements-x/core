@@ -140,7 +140,8 @@ export function customElement(args: ICustomElementProps): any {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-      this._props[name] = newValue;
+      const propName = name.replace(/-([a-z])/g, g => g[1].toUpperCase());
+      this._props[propName] = newValue;
       if (this._connected && (oldValue !== newValue)) {
         if (args.attributeChangedCallback) {
           debug(this.tagName, 'attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);

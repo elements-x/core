@@ -34,6 +34,7 @@ export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', {key, attrDef, attrValue, defaultValue})
     const value = // type conversion
       attrDef.type === 'number' ? +defaultValue : 
+      attrDef.type === Number ? +defaultValue : 
       attrDef.type === 'boolean' ? attrValue !== null ? true : !!attrDef.value : 
       attrDef.type === 'string' ? '' + defaultValue  :
       attrDef.type === 'date' ? localDate(defaultValue) :
