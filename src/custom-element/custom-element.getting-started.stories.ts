@@ -19,7 +19,7 @@ customElement({
   attrs : {
     hello: 'Hello',
     world: 'Custom Element',
-    helloWorld: {type: 'boolean'}
+    helloWorld: {type: Boolean}
   },
   props: {
     prop1: 0,

@@ -17,10 +17,10 @@ customElement({
     <button class="last page navigation" title="last page"></button>
   `,
   attrs: {
-    total: {type: Number, value: 100},
-    index: {type: Number, value: 0},
-    numPerPage: {type: Number, value: 10},
-    numPages: {type: Number, value: 5},
+    total: {type: Number, default: 100},
+    index: {type: Number, default: 0},
+    numPerPage: {type: Number, default: 10},
+    numPages: {type: Number, default: 5},
   },
   events: {
     'click': handleClick, 

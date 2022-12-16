@@ -1,6 +1,6 @@
 type AttrValue = string | {
-  type: any, 
-  value?: number | boolean | string | Date | Function
+  type: typeof Number | typeof Boolean | typeof String | typeof Date | typeof Function, 
+  default?: number | boolean | string | Date | Function
 };
 
 export interface ICustomElementProps {

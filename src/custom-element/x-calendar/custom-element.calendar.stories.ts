@@ -66,12 +66,12 @@ const XCalendar = customElement({
   `,
   css: css, 
   attrs: {
-    multiple: {type: 'boolean'},
-    date: {type: 'date', value: new Date()},
+    multiple: {type: Boolean},
+    date: {type: Date, default: new Date()},
     monthFormat: 'long',  // long(June), short(Jun), narrow(J)
     weekFormat: 'long',  // long(Monday), short(Mon), narrow(M)
     locale: 'en', // en-US, ja, ko, zh-CN
-    firstDayOfWeek: {type: 'number', value: 0} // 0(Sunday), 1(Monday)
+    firstDayOfWeek: {type: Number, default: 0} // 0(Sunday), 1(Monday)
   },
   props: {
     currentDate: function() { return this._props.date; }
@@ -93,5 +93,5 @@ XCalendar.HOLIDAYS = [
 ];
 XCalendar.IS_SELECTABLE =  date => true ;
 
-export const MinCalendar = () => `<x-calendar class="small"></x-calendar>`;
-export const Calendar = () => `<x-calendar date="2022-12-31" multiple="true"></x-calendar>`;
+export const MiniCalendar = () => `<x-calendar class="small"></x-calendar>`;
+export const FullCalendar = () => `<x-calendar date="2022-12-31" multiple="true"></x-calendar>`;

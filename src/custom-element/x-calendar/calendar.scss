@@ -3,6 +3,9 @@ x-calendar {
   border: 1px solid #CCC;
   &.small {
     width: 260px;
+    .x-date:has(.x-holiday):after {
+      display: none;
+    }
   }
 
   .x-header {

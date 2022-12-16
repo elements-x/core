@@ -26,23 +26,23 @@ export function removeCss(el: ICustomElement) {
 
 export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
   for (var key in attrs) {
-    const attrDef = attrs[key];
     const attrName = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
     const attrValue = el.getAttribute(attrName);
-    const defaultValue = attrValue || attrDef.value;
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', {key, attrDef, attrValue, defaultValue})
-    const value = // type conversion
-      attrDef.type === 'number' ? +defaultValue : 
-      attrDef.type === Number ? +defaultValue : 
-      attrDef.type === 'boolean' ? attrValue !== null ? true : !!attrDef.value : 
-      attrDef.type === 'string' ? '' + defaultValue  :
-      attrDef.type === 'date' ? localDate(defaultValue) :
-      attrDef.type === 'function' ? defaultValue.bind(el)() :
-      attrDef.type === undefined ? attrValue || attrDef : 
-      defaultValue;
+    if (attrs[key]?.type) {
+      const defaultValue = attrValue || attrs[key].default;
+      const value = // type conversion
+        attrs[key].type === Number ? +defaultValue : 
+        attrs[key].type === Boolean ? attrValue !== null ? true : !!attrs[key].default : 
+        attrs[key].type === String ? '' + defaultValue  :
+        attrs[key].type === Date ? localDate(defaultValue) :
+        attrs[key].type === Function ? defaultValue.bind(el)() :
+        defaultValue;
+      el._props[key] = value;
+    } else {
+      el._props[key] = attrValue || attrs[key];
+    }
 
-    el._props[key] = value;
   }
 }
 
@@ -82,8 +82,7 @@ export function waitForScriptLoad(id, scripts: string[]): Promise<any> {
   return new Promise(function(resolve, reject) {
     function waitForCondition(){
       if (window[id])  {
-        console.log('window property found', id, window[id], window);
-        return resolve(true);
+        return resolve(`window.${id} found`);
       }
       else if (waited > 3000)  reject();
       else {

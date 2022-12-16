@@ -22,9 +22,9 @@ customElement({
   css, 
   html,
   attrs: {
-    hour: {type: 'number', value: new Date().getHours()},
-    minute: {type: 'number', value: new Date().getMinutes()},
-    run: {type: 'boolean'}
+    hour: {type: Number, default: new Date().getHours()},
+    minute: {type: Number, default: new Date().getMinutes()},
+    run: {type: Boolean}
   },
   connectedCallback() {
     this.dragEndHandler = (function() { this._onDrag = false; }).bind(this);

@@ -73,7 +73,6 @@ export function updateMinuteHand(clockEl) {
     clockEl._time.setHours(clockEl._time.getHours() + inc);      
   }
 
-  console.log('>>>>>>>>>>>>>>>>...l', minuteHand, deg);
   minuteHand.setAttribute('transform',`rotate(${deg})`);
   clockEl._prevMin = min;
 }

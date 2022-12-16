@@ -23,8 +23,8 @@ customElement({
     label: '',
     placeholder: ' ', // intentional one space to use :placeholder-shown
     value: '', // this._props.value
-    readonly: {type: 'boolean'}, 
-    disabled: {type: 'boolean'},
+    readonly: {type: Boolean}, 
+    disabled: {type: Boolean},
   },
   props: {
     inputEl: {

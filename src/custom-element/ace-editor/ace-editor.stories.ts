@@ -1,5 +1,5 @@
 import { customElement, waitForScriptLoad  } from "../custom-element";
-import { ICustomElementProps } from "../types";
+import css from './ace-editor.scss';
 
 declare global {
   interface Window {
@@ -8,7 +8,7 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/pre-conditional/ace-editor'
+  title: 'customElement()/ace-editor'
 };
 
 customElement({
@@ -16,46 +16,12 @@ customElement({
   tagName: 'x-ace',
   preCondition: () => waitForScriptLoad('ace', ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js']),
   html: `<pre class="editor"></pre>`,
-  css: `
-  x-ace {
-    display: block;
-    position: relative;
-    min-height: 80px;
-    height: 100%;
-    white-space: pre-wrap;
-    width: 100%;
-  }
-  x-ace > .editor {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: 0;
-  }
-  
-  /* Ace Editor Accessibility Fixes */
-  x-ace > .editor.ace-chrome .ace_variable {
-    color: #22616D;
-  }
-  x-ace > .editor.ace-chrome .ace_type {
-    color: #3747D2;
-  }
-  x-ace > .editor.ace-chrome .ace_variable.ace_parameter {
-    color: #874903;
-  }
-  x-ace > .editor.ace-monokai .ace_keyword {
-    color: #FC92B9;
-  }
-  x-ace > .editor.ace-monokai .ace_gutter-cell {
-    color: #BEBFBB;
-  }`,
+  css,
   attrs: {
     theme: 'monokai',
     mode: 'javascript',
-    showGutter: {type: 'boolean'},
-    useWrapMode: {type: 'boolean'}
+    showGutter: {type: Boolean},
+    useWrapMode: {type: Boolean}
   },
   connectedCallback(args) {
     const editorEl = this.querySelector('.editor');
@@ -90,7 +56,10 @@ window['setProps'] = (arr) => arr.forEach((el) => {
   document.querySelector(selector)[name] = value;
 })
 
-export const AceEditor = () => `<x-ace>function foo(items) {
+export const AceEditor = () => 
+`<x-ace>`+
+`function foo(items) {
   var x = "All this is syntax highlighted";
   return x;
-}</x-ace>`
+}` +
+`</x-ace>`;

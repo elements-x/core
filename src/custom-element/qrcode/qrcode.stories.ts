@@ -8,7 +8,7 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/pre-conditional/qrcode'
+  title: 'customElement()/qrcode'
 };
 
 const XQRCode = customElement({

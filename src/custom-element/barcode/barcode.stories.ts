@@ -8,7 +8,7 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/pre-conditional/barcode'
+  title: 'customElement()/barcode'
 };
 
 customElement({
