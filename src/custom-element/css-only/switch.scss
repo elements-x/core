@@ -1,0 +1,43 @@
+input[x-style][type=checkbox][role=switch] {
+  appearance: none;
+  position: relative;
+  color: inherit;
+  font-size: inherit;
+  width: 2em;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1px solid #333;
+  border-radius: 20px;
+  vertical-align: text-bottom;
+  margin: auto;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    margin: 0 0.15em;
+    border: 1px solid;
+    border-radius: 50%;
+    background: currentcolor;
+  }
+
+  &:checked {
+    background: #3751B5;
+    &::before {
+      left: 12px;
+      left: unset;
+      right: 0;
+      background: #FFF;
+      border: 1px #FFF;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}

@@ -1,0 +1,80 @@
+button[x-style] {
+  --primary: #3751B5;
+  --accent: #D13101;
+  --disabled: #FFF;
+  display: inline-block;
+  margin: 0px 4px;
+  border-radius: 4px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  vertical-align: bottom;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 1px 1px 2px #CCC;
+  min-width: 60px;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  min-height: 36px;
+  cursor: pointer;
+
+  &:active { 
+    box-shadow: none; 
+    transform: translate(1px, 1px); 
+    background-color: #3f57a8;
+    color: #FFF;
+  }
+
+  &:focus {
+    box-shadow: white 0 0 0 2px, #3751B5 0 0 0 4px;
+  }
+
+  &:disabled {
+    color: var(--disabled); 
+    pointer-events: none; 
+    background-color: #868585;
+  }
+
+  &:is(:hover, :focus) {
+    background-color: #3f57a8;
+    color: #FFF;
+  }
+
+  &.primary { 
+    background: var(--primary); 
+    color: #FFF; 
+  }
+
+  &.accent {
+    background: var(--accent);
+    color: #FFF;
+  }
+
+  &.icon { 
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%; 
+    padding: 0; 
+  }
+
+  &.no-style {
+    border: none;
+    background: initial;
+    color: initial;
+    min-width: revert;
+    box-shadow: revert;
+    padding: revert;
+    min-height: revert;
+
+    &:is(:hover, :focus) {
+      background-color: initial;
+      color: initial;
+    }
+    &:disabled {
+      background-color: initial;
+      color: initial;
+      opacity: .3;
+    }
+  }
+
+
+}

@@ -151,7 +151,8 @@ export function customElement(args: ICustomElementProps): any {
     }
   };
 
-  if (Object.keys(args).join(',') === 'tagName,css') { // css only. e.g. button styling
+  if (['debug,tagName,css', 'tagName,css'].includes(Object.keys(args).join(','))) {
+    // css only. e.g. button styling
     debug(args.tagName, `addCss('${args.tagName}', args.css)`);
     addCss(<string>args.tagName, <string>args.css);
   } else if (args.tagName && !customElements.get(args.tagName)) {
