@@ -1,9 +1,9 @@
 # Title
 
-map (w/ open-layers)
-pagination
+map (w/ open-layers) 
+pagination (1)
 select
-ul
+ul (2)
 ```Typescript
 defineX({ // returns a custom element
   name: 'my-custom', // custom element tag name
