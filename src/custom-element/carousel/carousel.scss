@@ -1,0 +1,74 @@
+x-carousel { 
+  display: block; 
+  position: relative; 
+
+  .x-items {
+    overflow: auto; 
+    display: flex;
+    * { 
+      transform: scale(0.99); 
+      opacity: .5; 
+      transition: all .3s; 
+    }
+    .x-active {
+      transform: scale(1); 
+      opacity: 1; 
+    }
+  }
+
+  :is(.x-prev, .x-next) {
+    border: 0;
+    background: transparent;
+    display: inline-block;
+    color: #FFF;
+    opacity: .3;
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    &:is(:hover, :focus) {
+      opacity: 1;
+    }
+  }
+
+  .x-prev {
+    left: 0;
+    &::before { 
+      font-size: 2em; 
+      content: '\25C0'; 
+    }
+  }
+
+  .x-next {
+    right: 0;
+    &::before { 
+      font-size: 2em; 
+      content: '\25B6'; 
+    }
+  }
+
+  .x-shortcuts {
+    position: absolute;
+    bottom: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .x-button {
+      width: 16px; 
+      height: 16px;
+      border-radius: 50%;
+      background: #FFF;
+      border: 0;
+      opacity: .5;
+      margin: 0 1px;
+      color: transparent;
+
+      &:is(:hover, :focus) {
+        opacity: .7;
+      }
+      &:active {
+        opacity: 1;
+      }
+    }
+  }
+}
