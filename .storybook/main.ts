@@ -10,9 +10,8 @@ module.exports = {
   ],
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-a11y",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions"
+    "@storybook/addon-a11y",
   ],
   framework: "@storybook/html",
   webpackFinal: async (config, { configType: string }) => { // configType: 'DEVELOPMENT' or 'PRODUCTION'
