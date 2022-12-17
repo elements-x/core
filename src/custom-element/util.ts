@@ -1,6 +1,10 @@
 import * as Handlebars from 'handlebars';
 import { ICustomElement } from "./types";
 
+Handlebars.registerHelper('titlecase', function(str) {
+  return str.toString().replace(/\w\S*/g, m => m.charAt(0).toUpperCase() + m.substr(1).toLowerCase())
+});
+
 export function addCss(el: ICustomElement | string, css: string) {
   const tagName = typeof el === 'string' ? el : el.tagName.toLowerCase();
   const styleEl = document.querySelector(`style[${tagName}]`);

@@ -1,18 +1,11 @@
 # Title
 
-css-only
-. button
-. table
-. data-tooltip
-. checkbox
-. radio
-. switch
 
 more
 . carousel
 
 ```Typescript
-defineX({ // returns a custom element
+customElement({ // returns a custom element
   name: 'my-custom', // custom element tag name
   attrs: { // reactive attrs change
   },

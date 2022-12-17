@@ -49,7 +49,7 @@ customElement({
     textMargin: 2,
     fontOptions: 'bold',
   },
-  render(args) { 
+  render() { 
     window.JsBarcode('.my-barcode').init()
   },
   attributeChangedCallback(name, oldValue, newValue) {

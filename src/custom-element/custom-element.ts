@@ -16,7 +16,7 @@ export function customElement(args: ICustomElementProps): any {
     // connectedCallback if args.html ... once
     // attributeChangedCallback       ... many times
     // set()                          ... many times
-    async render(runUserRenderFunc = false) {
+    async render() {
       return new Promise((resolve) => {
         const render = () => {
           try {
@@ -24,8 +24,8 @@ export function customElement(args: ICustomElementProps): any {
               debug(this.tagName, 'rendering html', {html: args.html});
               resetHTML(this, args.html);
             }
-            if (args.render && runUserRenderFunc) {
-              args.render.bind(this)(args);
+            if (args.render) {
+              args.render.bind(this)();
             }
             resolve(true);
           } catch (e) {
@@ -78,11 +78,13 @@ export function customElement(args: ICustomElementProps): any {
             Object.defineProperty(this, key, {
               get() { return prop.get.bind(this)(); },
               set(value) {
-                debug(this.tagName, 'setting prop set function', key, value, prop.set);
-                prop.set.bind(this)(value);
-                if (args.propsChangedCallback && this._connected) {
-                  debug(this.tagName, 'running args.propsChangedCallback');
-                  args.propsChangedCallback.bind(this)(key, value);
+                if (this._props[key] !== value) {
+                  debug(this.tagName, 'running prop.set function', key, value);
+                  prop.set.bind(this)(value);
+                  if (args.propsChangedCallback && this._connected) {
+                    debug(this.tagName, 'running args.propsChangedCallback');
+                    args.propsChangedCallback.bind(this)(key, value);
+                  }
                 }
               }
             });
@@ -94,11 +96,13 @@ export function customElement(args: ICustomElementProps): any {
             Object.defineProperty(this, key, {
               get() { return this._props[key]; },
               set(value) {
-                debug(this.tagName, 'setting prop', key, value, {key, value, connected: this._connected});
-                this._props[key] = value;
-                if (args.propsChangedCallback && this._connected) {
-                  debug(this.tagName, 'running args.propsChangedCallback');
-                  args.propsChangedCallback.bind(this)(key, value);
+                if (this._props[key] !== value) {
+                  debug(this.tagName, 'setting prop', key, value);
+                  this._props[key] = value;
+                  if (args.propsChangedCallback && this._connected) {
+                    debug(this.tagName, 'running args.propsChangedCallback');
+                    args.propsChangedCallback.bind(this)(key, value);
+                  }
                 }
               }
             });
@@ -107,7 +111,7 @@ export function customElement(args: ICustomElementProps): any {
         } 
       }
 
-      await this.render(true);
+      await this.render();
 
       if (args.events) {
         for(let key in args.events) {
