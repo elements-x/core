@@ -40,12 +40,18 @@ export const Tooltip = () => `
 `;
 
 export const Checkbox = () => `
-  <input x-style type="checkbox" checked/> Hello Checkbox
+  <label>
+    <input x-style type="checkbox" checked/> Hello Checkbox
+  </label>
 `;
 
 export const Radio = () => `
-  <input x-style type="radio" name="yes" checked>Yes</x-input>
-  <input x-style type="radio" name="yes">No</x-input>
+  <label>
+    <input x-style type="radio" name="yes" checked>Yes</x-input>
+  </label>
+  <label>
+    <input x-style type="radio" name="yes">No</x-input>
+  </label>
 `;
 
 export const Switch = () => `

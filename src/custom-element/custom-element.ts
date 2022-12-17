@@ -130,6 +130,7 @@ export function customElement(args: ICustomElementProps): any {
       }
 
       this._connected = true;
+      this.setAttribute('x-init', '');
     }
 
     disconnectedCallback() {
@@ -158,7 +159,7 @@ export function customElement(args: ICustomElementProps): any {
   if (['debug,tagName,css', 'tagName,css'].includes(Object.keys(args).join(','))) {
     // css only. e.g. button styling
     debug(args.tagName, `addCss('${args.tagName}', args.css)`);
-    addCss(<string>args.tagName, <string>args.css);
+    addCss(<string>args.tagName, <string>args.css, true);
   } else if (args.tagName && !customElements.get(args.tagName)) {
     debug('customElements.define(', args.tagName, CustomElement, ')');
     customElements.define(args.tagName, CustomElement);

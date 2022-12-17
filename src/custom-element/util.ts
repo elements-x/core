@@ -5,13 +5,14 @@ Handlebars.registerHelper('titlecase', function(str) {
   return str.toString().replace(/\w\S*/g, m => m.charAt(0).toUpperCase() + m.substr(1).toLowerCase())
 });
 
-export function addCss(el: ICustomElement | string, css: string) {
+export function addCss(el: ICustomElement | string, css: string, cssOnly=false) {
   const tagName = typeof el === 'string' ? el : el.tagName.toLowerCase();
   const styleEl = document.querySelector(`style[${tagName}]`);
   if (!styleEl) {
     const newStyleEl = document.createElement('style');
     newStyleEl.setAttribute(tagName,'');
-    newStyleEl.appendChild(document.createTextNode(css));
+    const newCss = cssOnly ? css : `${css}\n${tagName}:not([x-init]) {display:none}`;
+    newStyleEl.appendChild(document.createTextNode(newCss));
     document.head.appendChild(newStyleEl);
   }
 }
