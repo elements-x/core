@@ -6,7 +6,7 @@ export default {
   title: 'customElement()/x-select'
 };
 
-function selectHandler(event) {
+function selectHandler(event) {``
   if (event.target.closest('slot')) { // option mouse clicked
     this.value = event.target.value || event.target.getAttribute('value');
     this.dispatchEvent(new Event('change', {bubbles: true}));
@@ -29,7 +29,7 @@ customElement({
       {{#if placeholder}}placeholder="{{placeholder}}"{{/if}} 
       {{#if readonly}}readonly{{/if}}
      />
-    <slot hidden></slot> <!-- options goes into here -->
+    <slot></slot> <!-- options goes into here -->
   `,
   css, 
   attrs: {
@@ -53,14 +53,11 @@ customElement({
     highlightedEl: { get() { return this.querySelector('slot .x-highlighted:not([hidden])'); } },
   },
   events: {
-    mousedown: selectHandler,
-    focusin(event) {
-      this.slotEl.removeAttribute('hidden');
-      highlightValue(this, this.value);
-    },
-    focusout(event) {
-      this.slotEl.setAttribute('hidden', '');
-    },
+    // mousedown -> inputEl.blur(), hide dropdown -> input:focus, show dropdown
+    mousedown: selectHandler,   
+    // click(event) {...} //  click -> inputEl.blur(), hide dropdown
+    // do not call selectHandler with click event, but with mousedown
+    focusin(event) { console.log('focusin', event.target)},
     keydown(event) {
       if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(event.key)) {
         if      (event.key === 'ArrowDown') { highlightNext(this, 1); }
@@ -78,6 +75,9 @@ customElement({
   },
   attributeChangedCallback(name, oldVal, newVal) {
     this.render();
+  },
+  connectedCallback() { // do not call this.render() here, it's called already
+    highlightValue(this, this.value);
   }
 });
 

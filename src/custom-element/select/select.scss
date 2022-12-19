@@ -1,8 +1,13 @@
 x-select {
   display: inline-block;
   position: relative;
+
   &:has(input:read-only) {
     pointer-events: none;
+  }
+
+  &:focus-within slot {
+    display: block;
   }
  
   input {
@@ -15,20 +20,17 @@ x-select {
     background-position-x: 100%;
     background-position-y: 50%;
     border-radius: 4px;
+    box-sizing: border-box;
 
     &:disabled {
       opacity: .7;
     }
-
-    &:focus + slot {
-      position: absolute;
-      display: block; /* referential, set by js */
-    }
   }
 
   slot {
-    // opacity: 0;
+    display: none;
     padding: 6px;
+    box-sizing: border-box;
     border: 1px solid #ccc;
     position: absolute;
     min-width: 200px;
