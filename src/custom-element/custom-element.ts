@@ -78,7 +78,7 @@ export function customElement(args: ICustomElementProps): any {
             Object.defineProperty(this, key, {
               get() { return prop.get.bind(this)(); },
               set(value) {
-                if (this._props[key] !== value) {
+                if (prop.get.bind(this)() !== value) {
                   debug(this.tagName, 'running prop.set function', key, value);
                   prop.set.bind(this)(value);
                   if (args.propsChangedCallback && this._connected) {

@@ -1,0 +1,57 @@
+x-select {
+  display: inline-block;
+  position: relative;
+  &:has(input:read-only) {
+    pointer-events: none;
+  }
+ 
+  input {
+    width: 200px;
+    height: 32px;
+    padding: 0 20px 0 4px;
+    border: 1px solid #CCC;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' fill='%23666' /><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    border-radius: 4px;
+
+    &:disabled {
+      opacity: .7;
+    }
+
+    &:focus + slot {
+      position: absolute;
+      display: block; /* referential, set by js */
+    }
+  }
+
+  slot {
+    // opacity: 0;
+    padding: 6px;
+    border: 1px solid #ccc;
+    position: absolute;
+    min-width: 200px;
+    max-height: 200px;
+    white-space: nowrap;
+    background: #FFF;
+    overflow: auto;
+    z-index: 1;
+
+    > :is(.x-highlighted, :hover) {
+      background: #529FFF;
+      color: #FFF;
+    }
+
+    > * {
+      padding: 2px 4px;
+      line-height: 28px;
+      border-radius: 2px;
+    }
+
+    > .x-selected:before {
+      content: '✓ ';
+    }
+  }
+}
+

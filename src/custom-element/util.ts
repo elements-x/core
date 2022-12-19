@@ -54,9 +54,10 @@ export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
 export function resetHTML(el: ICustomElement, newHtml: string) {
   const orgHtml = el._props.orgInnerHTML as string;
   const templateHtml = Handlebars.compile(newHtml)(el._props);
-  const html = 
-    templateHtml.indexOf('</slot>') && orgHtml ? templateHtml.replace(/<slot.*?>.*?<\/slot>/, `<slot>${orgHtml}</slot>`) :
-    templateHtml;
+
+  const toSlot = templateHtml.indexOf('</slot>') && orgHtml; 
+  const slotHTML = templateHtml.replace(/<slot(.*?)>.*?<\/slot>/, (str, m1) => `<slot${m1}>${orgHtml}</slot>`);
+  const html = toSlot ? slotHTML: templateHtml;
 
   // Convert HTML to a valid HTML to make it sure not to break the hosting document
   el.innerHTML = '';

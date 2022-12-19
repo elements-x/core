@@ -49,9 +49,8 @@ x-carousel {
   .x-shortcuts {
     position: absolute;
     bottom: 24px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
 
     .x-button {
       width: 16px; 
@@ -66,7 +65,7 @@ x-carousel {
       &:is(:hover, :focus) {
         opacity: .7;
       }
-      &:active {
+      &.x-active {
         opacity: 1;
       }
     }
