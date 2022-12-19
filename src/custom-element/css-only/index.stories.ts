@@ -36,7 +36,9 @@ export const Button = () => `
 `;
 
 export const Tooltip = () => `
+  <span data-tooltip-left="This is a left tooltip">Help</span>
   <span data-tooltip="This is a tooltip">Help</span>
+  <span data-tooltip="This is a tooltip with focus" tabindex="0">Help</span>
 `;
 
 export const Checkbox = () => `
