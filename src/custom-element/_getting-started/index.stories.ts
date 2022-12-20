@@ -9,7 +9,6 @@ customElement({
   html: `<h1>{{hello}} {{world}}</h1>`,
   css: `
   hello-custom-element {
-    color: red; 
     display: inline-block;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 3px #CCC;
