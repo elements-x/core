@@ -10,12 +10,14 @@ customElement({
   tagName: 'x-textfield',
   css, 
   html: `
-    {{#if label}}<span class="label">{{label}}</span>{{/if}}
+    {{#label}}
+      <span class="label">{{label}}</span>
+    {{/label}}
     <input type="text" 
-      {{#if value}}value="{{value}}"{{/if}} 
-      {{#if placeholder}}placeholder="{{placeholder}}"{{/if}} 
-      {{#if disabled}}disabled{{/if}}
-      {{#if readonly}}readonly{{/if}}
+      {{#value}}value="{{value}}"{{/value}}
+      {{#placeholder}}placeholder="{{placeholder}}"{{/placeholder}} 
+      {{#disabled}}disabled{{/disabled}}
+      {{#readonly}}readonly{{/readonly}}
     />
     <div class="ink-bar"></div>
   `,

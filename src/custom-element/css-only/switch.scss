@@ -10,31 +10,11 @@ input[x-style][type=checkbox][role=switch] {
   border-radius: 20px;
   vertical-align: text-bottom;
   margin: auto;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(0, -50%);
-    box-sizing: border-box;
-    width: 1em;
-    height: 1em;
-    margin: 0 0.15em;
-    border: 1px solid;
-    border-radius: 50%;
-    background: currentcolor;
-  }
+  background-image: radial-gradient(circle at 33%, #333 8px, white 0 20px);
 
   &:checked {
-    background: #3751B5;
-    &::before {
-      left: 12px;
-      left: unset;
-      right: 0;
-      background: #FFF;
-      border: 1px #FFF;
-    }
+    background-image: radial-gradient(circle at 70%, #FFF 8px, #3751B5 0 20px);
+    border: 1px solid #3751B5;
   }
 
   &:disabled {

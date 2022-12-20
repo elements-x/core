@@ -1,9 +1,5 @@
-import * as Handlebars from 'handlebars';
+import Mustache from 'mustache';
 import { ICustomElement } from "./types";
-
-Handlebars.registerHelper('titlecase', function(str) {
-  return str.toString().replace(/\w\S*/g, m => m.charAt(0).toUpperCase() + m.substr(1).toLowerCase())
-});
 
 export function addCss(el: ICustomElement | string, css: string, cssOnly=false) {
   const tagName = typeof el === 'string' ? el : el.tagName.toLowerCase();
@@ -53,7 +49,7 @@ export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
 
 export function resetHTML(el: ICustomElement, newHtml: string) {
   const orgHtml = el._props.orgInnerHTML as string;
-  const templateHtml = Handlebars.compile(newHtml)(el._props);
+  const templateHtml = Mustache.render(newHtml, el._props);
 
   const toSlot = templateHtml.indexOf('</slot>') && orgHtml; 
   const slotHTML = templateHtml.replace(/<slot(.*?)>.*?<\/slot>/, (str, m1) => `<slot${m1}>${orgHtml}</slot>`);

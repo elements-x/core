@@ -57,7 +57,7 @@ x-textfield  {
   &:has(input:placeholder-shown[placeholder=" "]):has(input:not(:focus)) {
     .label {
       font-size: 16px;
-      top: 24px;
+      top: 16px;
     }
     input {
       opacity: 0;

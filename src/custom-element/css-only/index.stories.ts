@@ -54,6 +54,13 @@ export const Radio = () => `
   <label>
     <input x-style type="radio" name="yes">No</x-input>
   </label>
+  <br/>
+  <label>
+    <input x-style type="radio" name="yes2" checked disabled>Yes</x-input>
+  </label>
+  <label>
+    <input x-style type="radio" name="yes2" disabled>No</x-input>
+  </label>
 `;
 
 export const Switch = () => `

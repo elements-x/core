@@ -23,11 +23,11 @@ customElement({
   tagName: 'x-select',
   html: `
     <input aria-label="Select input"
-      {{#if size}}size="{{size}}"{{/if}} 
-      {{#if value}}value="{{value}}"{{/if}} 
-      {{#if disabled}}disabled{{/if}}
-      {{#if placeholder}}placeholder="{{placeholder}}"{{/if}} 
-      {{#if readonly}}readonly{{/if}}
+      {{#size}}size="{{size}}"{{/size}} 
+      {{#value}}value="{{value}}"{{/value}} 
+      {{#disabled}}disabled{{/disabled}}
+      {{#placeholder}}placeholder="{{placeholder}}"{{/placeholder}} 
+      {{#readonly}}readonly{{/readonly}}
      />
     <slot></slot> <!-- options goes into here -->
   `,

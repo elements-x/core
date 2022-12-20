@@ -21,7 +21,7 @@ customElement({
   debug: true,
   tagName: 'hello-attrs-props',
   html: `
-    <h1>{{hello}} {{titlecase helloWorld}} {{world}}</h1>
+    <h1>{{hello}} {{helloWorld}} {{world}}</h1>
     <br/> prop1 : {{prop1}}
     <br/> prop2 : {{prop2}}
   `,
@@ -73,7 +73,7 @@ customElement({
 
 //@ts-ignore
 window.changeAttr = 
-  _ => document.querySelector('#test').setAttribute('world', `World ${new Date().getSeconds()}`);
+  _ => document.querySelector('#test').setAttribute('world', `World ${new Date().getTime()}`);
 
 //@ts-ignore
 window.changeProp = _ => document.querySelector('#test').prop1 += 1
