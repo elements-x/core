@@ -4,16 +4,53 @@ import { Meta } from '@storybook/addon-docs';
 
 <div class="d-flex align-items-center">
   <img src="http://elements-x.com/assets/elements-x.png" width="600" />
-  <div>
+  <div class="ps-5">
     <div class="fs-5">Simple</div>
-    <div class="fs-5">Fast</div>
+    <div class="fs-5">Easy</div>
     <div class="fs-5">Custom Element</div>
   </div>
 </div>
 
 <hr class="border border-primary bg-primary" />
 
+<div class="text-center p-4">
+Elements-x is a simple library for building fast, lightweight custom elements.
+</div>
 
+<div class="container row">
+  <div class="col">
+    <div class="fs-4 p-4">Simple</div>
+    It's a small wrapper of Custom Elements, 
+    <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements">a HTML standard</a> in a JSON format.
+    With minimum coding, you can create your own custom elements in seconds.
+  </div>
 
+  <div class="col">
+    <div class="fs-4 p-4">Easy</div>
+    What you need to know is a <code>customElement(options)</code> function only, to make a custom element to work.
+    <code>options</code> is just a JSON-expression of custom elements. Thus, you know it all already.
+    You do not need to know any new class properties, methods, inheritance tree, or any decorators.
+  </div>
+
+  <div class="col">
+    <div class="fs-4 p-4">Custom Element</div>
+    The return from <code>customElement()</code> is a custom element.
+    Custom elements work anywhere you use HTML, with any framework or none at all. 
+  </div>
+</div>
+
+```Typescript
+import { customElement } from '@elements-x/core';
+
+customElement({
+  tagName: 'hello-custom-element',
+  html: `<h1>{{hello}} {{world}}</h1>`,
+  css: `hello-custom-element { color: red; }`,
+  attrs : { hello: 'Hello', world: 'Custom Element' }
+});
+
+<hello-custom-element></hello-custom-element>
+````
+<h1 class="text-danger">Hello Custom Element</h1>
 
 
