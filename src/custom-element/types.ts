@@ -11,7 +11,7 @@ export interface ICustomElementProps {
   html?: string;
   css?: string;
   events?: { [key: string]: Function};
-  constructor?: Function;
+  constructorCallback?: Function;
   connectedCallback?: Function; // element is added to the document
   disconnectedCallback?: Function; // element is removed to the document
   adoptedCallback?: Function; // element is transferred to a new document
@@ -19,25 +19,4 @@ export interface ICustomElementProps {
   propsChangedCallback?: Function;
   render?: Function;
   debug?: boolean;
-}
-
-export interface ICustomElement extends HTMLElement {
-  _props: { [key: string]: number | boolean | string | Function };
-  render(runUserRenderFunc?: boolean);
-  // default is false, 
-  // if your render() function sets any prop, only call `this.render()` to prevent loop in propsChangedCallback() 
-  // with this.render(true) propsChangedCallback() -> render() -> user render() sets prop 
-  //                               ^                                       |
-  //                               +---------------------------------------+
-  // with this.render() propsChangedCallback() -> render() 
-  //
-  // if your render() function sets any attribute, only call `this.render()` to prevent loop in attributeChangedCallback() 
-  // with this.render(true) attributeChangedCallback() -> render() -> user render() sets attribute
-  //                               ^                                       |
-  //                               +---------------------------------------+
-  // with this.render() propsChangedCallback() -> render()
-  adoptedCallback();
-  attributeChangedCallback(name: string, oldValue: string, newValue: string);
-  connectedCallback();
-  disconnectedCallback();
 }

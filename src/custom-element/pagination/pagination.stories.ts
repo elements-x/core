@@ -2,12 +2,11 @@ import { customElement  } from "../custom-element";
 import css from './pagination.scss';
 
 export default {
-  title: 'customElement()/x-pagination'
+  title: 'customElement()/Pagination'
 };
 
-customElement({
+customElement('x-pagination', {
   debug: true,
-  tagName: 'x-pagination',
   css, 
   html: `
     <button class="first page navigation" title="first page"></button>
@@ -115,6 +114,6 @@ function getPages({total, numPerPage, index, numPages}) {
   return [...Array(length).keys()].map(el => el + minPage);
 }
 
-export const File = () => `
+export const Pagination = () => `
   <x-pagination></x-pagination>
 `

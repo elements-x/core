@@ -3,7 +3,7 @@ import { highlightNext, highlightValue, highlightSearch } from "./highlight";
 import css from './select.scss';
 
 export default {
-  title: 'customElement()/x-select'
+  title: 'customElement()/Select'
 };
 
 function selectHandler(event) {``
@@ -18,9 +18,8 @@ function selectHandler(event) {``
   }
 }
 
-customElement({
+customElement('x-select', {
   debug: true,
-  tagName: 'x-select',
   html: `
     <input aria-label="Select input"
       {{#size}}size="{{size}}"{{/size}} 

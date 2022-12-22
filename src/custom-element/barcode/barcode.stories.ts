@@ -8,11 +8,10 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/barcode'
+  title: 'customElement()/BarCode'
 };
 
-customElement({
-  tagName: 'x-barcode',
+customElement('x-barcode', {
   debug: true,
   preCondition: () => waitForScriptLoad('JsBarcode', ['//unpkg.com/jsbarcode/dist/JsBarcode.all.min.js']),
   html: `

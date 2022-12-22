@@ -12,8 +12,7 @@ Then import into JavaScript or TypeScript files:
 ```javascript
 import {customElement} from '@elements-x/core';
 
-customElement({
-  tagName: 'hello-custom-element',
+customElement('hello-custom-element', {
   html: `<h1>{{hello}} {{world}}</h1>`,
   css: `hello-custom-element { color: red; }`,
   attrs : { hello: 'Hello', world: 'Custom Element' }

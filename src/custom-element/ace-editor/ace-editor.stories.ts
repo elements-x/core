@@ -8,12 +8,11 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/ace-editor'
+  title: 'customElement()/AceEditor'
 };
 
-customElement({
+customElement('x-ace', {
   debug: true,
-  tagName: 'x-ace',
   preCondition: () => waitForScriptLoad('ace', ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js']),
   html: `<pre class="editor"></pre>`,
   css,

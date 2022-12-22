@@ -1,8 +1,7 @@
 import { customElement } from '../custom-element';
 
-customElement({
+customElement('hello-attrs-props', {
   debug: true,
-  tagName: 'hello-attrs-props',
   html: `
     <h1>{{hello}} {{helloWorld}} {{world}}</h1>
     <br/> prop1 : {{prop1}}

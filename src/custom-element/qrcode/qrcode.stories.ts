@@ -8,10 +8,10 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/qrcode'
+  title: 'customElement()/QRCode'
 };
 
-const XQRCode = customElement({
+customElement('x-qrcode', {
   debug: true,
   preCondition: () => waitForScriptLoad('QRCode', ['//unpkg.com/qrcode@1.4.4/build/qrcode.min.js']),
   html: `<img alt="{{value}}" src="{{imgUrl}}" /><br/>{{value}}`,
@@ -27,10 +27,6 @@ const XQRCode = customElement({
     this.render();
   }
 });
-if (!customElements.get('x-qrcode')) {
-  customElements.define('x-qrcode', XQRCode);
-}
-
 
 window['setAttrs'] = (arr) => arr.forEach((el) => {
   const [selector, name, value] = el.split(',');

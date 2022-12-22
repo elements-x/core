@@ -13,12 +13,11 @@ import {
 } from './clock.func';
 
 export default {
-  title: 'customElement()/x-clock'
+  title: 'customElement()/Clock'
 };
 
-customElement({
+customElement('x-clock', {
   debug: true,
-  tagName: 'x-clock',
   css, 
   html,
   attrs: {
@@ -86,7 +85,7 @@ function onDrag(event) {
 const hour = new Date().getUTCHours();
 const minute = new Date().getUTCMinutes();
 
-export const File = () => `
+export const Clock = () => `
   <x-clock></x-clock>
   <x-clock run hour="${hour}" minute="${minute}">London</x-clock>
   <x-clock run>Toronto</x-clock>

@@ -2,12 +2,11 @@ import { customElement  } from "../custom-element";
 import css from './list.scss';
 
 export default {
-  title: 'customElement()/x-list'
+  title: 'customElement()/List'
 };
 
-customElement({
+customElement('x-list', {
   debug: true,
-  tagName: 'x-list',
   css, 
   attrs: {
     selected: undefined,
@@ -114,7 +113,7 @@ function keydownHandler(event) {
   }
 } 
 
-export const File = () => `
+export const List = () => `
   <x-list selected="file-a">
     <ul>
       <li> File

@@ -45,8 +45,7 @@ function clickHandler(e) {
   }
 }
 
-const XCalendar = customElement({
-  tagName: 'x-calendar',
+const XCalendar = customElement('x-calendar', {
   debug: true,
   html: `
     <div class="calendar">

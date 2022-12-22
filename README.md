@@ -1,25 +1,17 @@
 # Title
 
 
-more
-. carousel
+```javascript
+customElement('my-el', {html: 'Hello My Element'});
+```
 
-```Typescript
+```javascript
+const MyElement = customElement({html: 'Hello My Element'});
+customElments.define('my-el', MyElement);
+```
+
+```javascript
 customElement({ // returns a custom element
-  name: 'my-custom', // custom element tag name
-  attrs: { // reactive attrs change
-  },
-  props: { // reactive props change
-  },
-  html: ``,
-  css: ``,
-  connectedCallback() { // Invoked when appended into DOM
-  },
-  disconnectedCallback() { // Invoked when disconnected from DOM
-  },
-  adoptedCallback() { // Invoked wnen moved to a new document.
-  },
-  attributeChangedCallback(name, oldValue, newValue) { // Invoked when attribute is changed
-  }
-}) : HTMLElement;
+  ... 
+});
 ```

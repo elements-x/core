@@ -7,15 +7,15 @@ import radioCss from './radio.scss';
 import switchCss from './switch.scss';
 
 export default {
-  title: 'customElement()/css-only'
+  title: 'customElement()/Css Only'
 };
 
-customElement({debug: true, tagName: 'button', css: buttonCss});
-customElement({debug: true, tagName: 'table', css: tableCss});
-customElement({debug: true, tagName: 'tooltip', css: tooltipCss});
-customElement({debug: true, tagName: 'checkbox', css: checkboxCss});
-customElement({debug: true, tagName: 'radio', css: radioCss});
-customElement({debug: true, tagName: 'switch', css: switchCss});
+customElement('button', {debug: true, css: buttonCss});
+customElement('table', {debug: true, css: tableCss});
+customElement('tooltip', {debug: true, css: tooltipCss});
+customElement('input-checkbox', {debug: true,  css: checkboxCss});
+customElement('input-radio', {debug: true, css: radioCss});
+customElement('input-switch', {debug: true,  css: switchCss});
 
 export const Button = () => `
   <h3>Default</h3>

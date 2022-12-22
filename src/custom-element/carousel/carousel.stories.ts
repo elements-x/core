@@ -3,12 +3,11 @@ import css from './carousel.scss';
 import html from './carousel.html';
 
 export default {
-  title: 'customElement()/x-carousel'
+  title: 'customElement()/Carousel'
 };
 
-customElement({
+customElement('x-carousel', {
   debug: true,
-  tagName: 'x-carousel',
   css, 
   html,
   attrs: {
@@ -70,7 +69,7 @@ function show(carouselEl, number, scroll=true) {
   carouselEl.querySelectorAll('.x-shortcuts .x-button')[carouselEl.selected].classList.add('x-active');
 }
 
-export const File = () => `
+export const Carousel = () => `
   <x-carousel selected="2">
     <img class="img1" src="//picsum.photos/300/200?1">
     <img class="img2" src="//picsum.photos/300/200?2">

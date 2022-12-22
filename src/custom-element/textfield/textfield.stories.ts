@@ -2,12 +2,11 @@ import { customElement, waitForScriptLoad  } from "../custom-element";
 import css from './textfield.scss';
 
 export default {
-  title: 'customElement()/x-textfield'
+  title: 'customElement()/TextField'
 };
 
-customElement({
+customElement('x-textfield', {
   debug: true,
-  tagName: 'x-textfield',
   css, 
   html: `
     {{#label}}

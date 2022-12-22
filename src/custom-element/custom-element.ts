@@ -1,31 +1,35 @@
 import { addCss, removeCss, setPropsFromAttributes, resetHTML } from './util';
-import { ICustomElement, ICustomElementProps } from './types';
+import { ICustomElementProps } from './types';
 
 export { waitForScriptLoad } from './util';
 
-export function customElement(args: ICustomElementProps): any {
+export function customElement(arg1: string | ICustomElementProps, arg2?: ICustomElementProps): any {
+  const [tagName, options] = 
+    typeof arg1 === 'string' ? [arg1, arg2] :
+    typeof arg1 === 'object' ? [undefined, arg1] : [];
+
   function debug(...params) {
-    args.debug && console.log(...params); 
+    options.debug && console.log(...params); 
   }
 
-  class CustomElement extends HTMLElement implements ICustomElement {
+  class CustomElement extends HTMLElement {
     _props: {[key: string]: any} = {}; // properties including attribute values
     _timer: any; // timer not to render too many times
     _connected: boolean; // true after connectedCallback()
 
-    // connectedCallback if args.html ... once
+    // connectedCallback if options.html ... once
     // attributeChangedCallback       ... many times
     // set()                          ... many times
     async render() {
       return new Promise((resolve) => {
         const render = () => {
           try {
-            if (args.html) {
-              debug(this.tagName, 'rendering html', {html: args.html});
-              resetHTML(this, args.html);
+            if (options.html) {
+              debug(this.tagName, 'rendering html', {html: options.html});
+              resetHTML(this, options.html);
             }
-            if (args.render) {
-              args.render.bind(this)();
+            if (options.render) {
+              options.render.bind(this)();
             }
             resolve(true);
           } catch (e) {
@@ -40,13 +44,13 @@ export function customElement(args: ICustomElementProps): any {
     }
 
     static get observedAttributes() {
-      return Object.keys(args.attrs || {}); 
+      return Object.keys(options.attrs || {}); 
     }
 
     constructor() {
       super();
-      debug(this.tagName, 'Running constructor()');
-      args.constructor?.bind(this)();
+      debug(this.tagName, 'Running options.constructorCallback()');
+      options.constructorCallback?.bind(this)();
     }
 
     async connectedCallback() {
@@ -54,26 +58,26 @@ export function customElement(args: ICustomElementProps): any {
 
       this._props.orgInnerHTML = this.innerHTML;
 
-      if (args.preCondition) {
-        debug(this.tagName, 'await args.preCondition()');
-        await args.preCondition();
+      if (options.preCondition) {
+        debug(this.tagName, 'await options.preCondition()');
+        await options.preCondition();
       }
 
-      if (args.css) {
+      if (options.css) {
         debug(this.tagName, 'addCss(this, args.css)');
-        addCss(this, args.css);
+        addCss(this, options.css);
       }
 
-      if (args.attrs) {
+      if (options.attrs) {
         debug('CustomElement.observedAttributes', CustomElement.observedAttributes);
         debug(this.tagName, 'setAttributes(this, args.attrs)');
-        setPropsFromAttributes(this, args.attrs);
+        setPropsFromAttributes(this, options.attrs);
       }
 
-      if (args.props) {
+      if (options.props) {
         debug(this.tagName, 'setting props ------------------------------------------');
-        for (let key in args.props) {
-          const prop = args.props[key]; // e.g., 123, or {get: Function, set: Function}
+        for (let key in options.props) {
+          const prop = options.props[key]; // e.g., 123, or {get: Function, set: Function}
           if (prop && prop.get && prop.set) {
             Object.defineProperty(this, key, {
               get() { return prop.get.bind(this)(); },
@@ -81,9 +85,9 @@ export function customElement(args: ICustomElementProps): any {
                 if (prop.get.bind(this)() !== value) {
                   debug(this.tagName, 'running prop.set function', key, value);
                   prop.set.bind(this)(value);
-                  if (args.propsChangedCallback && this._connected) {
-                    debug(this.tagName, 'running args.propsChangedCallback');
-                    args.propsChangedCallback.bind(this)(key, value);
+                  if (options.propsChangedCallback && this._connected) {
+                    debug(this.tagName, 'running options.propsChangedCallback');
+                    options.propsChangedCallback.bind(this)(key, value);
                   }
                 }
               }
@@ -99,9 +103,9 @@ export function customElement(args: ICustomElementProps): any {
                 if (this._props[key] !== value) {
                   debug(this.tagName, 'setting prop', key, value);
                   this._props[key] = value;
-                  if (args.propsChangedCallback && this._connected) {
-                    debug(this.tagName, 'running args.propsChangedCallback');
-                    args.propsChangedCallback.bind(this)(key, value);
+                  if (options.propsChangedCallback && this._connected) {
+                    debug(this.tagName, 'running options.propsChangedCallback');
+                    options.propsChangedCallback.bind(this)(key, value);
                   }
                 }
               }
@@ -113,10 +117,10 @@ export function customElement(args: ICustomElementProps): any {
 
       await this.render();
 
-      if (args.events) {
-        for(let key in args.events) {
+      if (options.events) {
+        for(let key in options.events) {
           const [eventName, selector] = key.split(':');
-          const eventHandler = args.events[key];
+          const eventHandler = options.events[key];
           const eventSrc = selector ? this.querySelector(selector) : this;
           if (eventSrc) {
             eventSrc?.addEventListener(eventName, eventHandler.bind(this));
@@ -124,9 +128,9 @@ export function customElement(args: ICustomElementProps): any {
         }
       }
 
-      if (args.connectedCallback) {
-        debug(this.tagName, 'executing connectedCallback function', this, args.connectedCallback);
-        args.connectedCallback?.bind(this)();
+      if (options.connectedCallback) {
+        debug(this.tagName, 'executing connectedCallback function', this, options.connectedCallback);
+        options.connectedCallback?.bind(this)();
       }
 
       this._connected = true;
@@ -136,33 +140,33 @@ export function customElement(args: ICustomElementProps): any {
     disconnectedCallback() {
       debug(this.tagName, 'Running disconnectedCallback()');
       removeCss(this);
-      args.disconnectedCallback?.bind(this)();
+      options.disconnectedCallback?.bind(this)();
     }
 
     adoptedCallback() {
       debug(this.tagName, 'Running adoptedCallback()');
-      args.adoptedCallback?.bind(this)();
+      options.adoptedCallback?.bind(this)();
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
       const propName = name.replace(/-([a-z])/g, g => g[1].toUpperCase());
       this._props[propName] = newValue;
       if (this._connected && (oldValue !== newValue)) {
-        if (args.attributeChangedCallback) {
-          debug(this.tagName, 'attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);
-          args.attributeChangedCallback.bind(this)(name, oldValue, newValue);
+        if (options.attributeChangedCallback) {
+          debug(this.tagName, 'options.attributeChangedCallback', `${name} ${oldValue} -> ${newValue}`);
+          options.attributeChangedCallback.bind(this)(name, oldValue, newValue);
         }
       }
     }
   };
 
-  if (['debug,tagName,css', 'tagName,css'].includes(Object.keys(args).join(','))) {
-    // css only. e.g. button styling
-    debug(args.tagName, `addCss('${args.tagName}', args.css)`);
-    addCss(<string>args.tagName, <string>args.css, true);
-  } else if (args.tagName && !customElements.get(args.tagName)) {
-    debug('customElements.define(', args.tagName, CustomElement, ')');
-    customElements.define(args.tagName, CustomElement);
+  // css-only custom element. e.g. button styling
+  if (['debug,css', 'css'].includes(Object.keys(options).join(','))) {
+    debug(tagName, `addCss('${tagName}', options.css)`);
+    addCss(tagName, <string>options.css, true);
+  } else if (tagName && !customElements.get(tagName)) {
+    debug('customElements.define(', tagName, CustomElement, ')');
+    customElements.define(tagName, CustomElement);
   }
 
   return CustomElement;

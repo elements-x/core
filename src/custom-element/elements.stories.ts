@@ -1,15 +1,13 @@
 import { customElement } from '../custom-element';
 export default { title: 'Elements' };
 
-customElement( {
-  tagName: 'hello-custom-element',
+customElement('hello-custom-element', {
   html: `<h1>{{hello}} {{world}}</h1>`,
   css: `hello-custom-element { color: red; }`,
   attrs : { hello: 'Hello', world: 'Custom Element' }
 })
 
-customElement({
-  tagName: 'my-event',
+customElement('my-event', {
   html: '<button>Click Me</button`>',
   events : { 
     click: function(event) { alert('Click Happened'); }
@@ -26,8 +24,7 @@ Here's a sample:
 <x-prism>
 <code>import { customElement } from '@elements-x/core';
 
-customElement({
-  tagName: 'hello-custom-element',
+customElement('hello-custom-element', {
   html: \`&lt;h1>{{hello}} {{world}}&lt;/h1>\`,
   css: \`hello-custom-element { color: red; }\`,
   attrs : { hello: 'Hello', world: 'Custom Element' }
@@ -95,8 +92,7 @@ export const MustacheJSRendering = () => `
 It compiles your HTML using <a href="https://github.com/janl/mustache.js/#templates">Mustache</a>.
 The current values of <code>attrs</code> and <code>props</code> are passed to compile new HTML.
 <x-prism>
-customElement({
-  tagName: 'my-element',
+customElement('my-element', {
   html: '{{hello}} {{my}} {{world}}',
   attrs : { hello: 'Hi,', world: 'Custom Element' }
   props : { my: 'My' }
@@ -129,8 +125,7 @@ For example, the following code
 </p>
 
 <x-prism>
-customElement({
-  tagName: 'my-event',
+customElement('my-event', {
   html: '&lt;button>Click Me&lt/button>',
   events : { 
     click: function(event) { alert('Click Happened'); }
@@ -189,7 +184,7 @@ customElements.define('my-input',class extends HTMLElement {
   }
 });
 
-Input NOT Focusable with label
+&lt;!-- Input NOT Focusable with label and Shadow DOM -->
 &lt;label for="foo">
   Click this label &lt;my-input>&lt;/my-input>
 &lt;/label>

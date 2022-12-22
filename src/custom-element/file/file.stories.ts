@@ -2,12 +2,11 @@ import { customElement  } from "../custom-element";
 import css from './file.scss';
 
 export default {
-  title: 'customElement()/x-file'
+  title: 'customElement()/File'
 };
 
-customElement({
+customElement('x-file', {
   debug: true,
-  tagName: 'x-file',
   css, 
   html: `
   <label class="x-file-input">

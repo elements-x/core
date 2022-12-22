@@ -1,7 +1,6 @@
 import Mustache from 'mustache';
-import { ICustomElement } from "./types";
 
-export function addCss(el: ICustomElement | string, css: string, cssOnly=false) {
+export function addCss(el: HTMLElement | string, css: string, cssOnly=false) {
   const tagName = typeof el === 'string' ? el : el.tagName.toLowerCase();
   const styleEl = document.querySelector(`style[${tagName}]`);
   if (!styleEl) {
@@ -13,7 +12,7 @@ export function addCss(el: ICustomElement | string, css: string, cssOnly=false) 
   }
 }
 
-export function removeCss(el: ICustomElement) {
+export function removeCss(el: HTMLElement) {
   const tagName = el.tagName.toLowerCase();
   const type = tagName === 'x-input' && el.getAttribute('type');
   const typeSuffix = type ? `-${type}` : ''; 
@@ -25,7 +24,7 @@ export function removeCss(el: ICustomElement) {
   } 
 }
 
-export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
+export function setPropsFromAttributes(el: HTMLElement, attrs: any) {
   for (var key in attrs) {
     const attrName = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
     const attrValue = el.getAttribute(attrName);
@@ -39,17 +38,17 @@ export function setPropsFromAttributes(el: ICustomElement, attrs: any) {
         attrs[key].type === Date ? localDate(defaultValue) :
         attrs[key].type === Function ? defaultValue.bind(el)() :
         defaultValue;
-      el._props[key] = value;
+      el['_props'][key] = value;
     } else {
-      el._props[key] = attrValue || attrs[key];
+      el['_props'][key] = attrValue || attrs[key];
     }
 
   }
 }
 
-export function resetHTML(el: ICustomElement, newHtml: string) {
-  const orgHtml = el._props.orgInnerHTML as string;
-  const templateHtml = Mustache.render(newHtml, el._props);
+export function resetHTML(el: HTMLElement, newHtml: string) {
+  const orgHtml = el['_props'].orgInnerHTML as string;
+  const templateHtml = Mustache.render(newHtml, el['_props']);
 
   const toSlot = templateHtml.indexOf('</slot>') && orgHtml; 
   const slotHTML = templateHtml.replace(/<slot(.*?)>.*?<\/slot>/, (str, m1) => `<slot${m1}>${orgHtml}</slot>`);
