@@ -1,16 +1,27 @@
 import { customElement, waitForScriptLoad } from '../src/custom-element';
 
-customElement('x-prism', {
+function fixIndent(code) {
+  code = code.replace(/^([ \t]*\n+){1,}|[\n\t ]+$/g, ''); // remove empty first/last line
+  const firstIndent = (code.match(/^([ ]+)/) || [])[1];
+  if (firstIndent) {
+    const re = new RegExp(`^${firstIndent}`, 'gm');
+    return code.replace(re, '');
+  }
+  return code;
+}
+
+customElement('x-highlight', {
   debug: true,
-  await: () => waitForScriptLoad('Prism', [
-    '//cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js',
-    '//cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css'
+  await: () => waitForScriptLoad('hljs', [
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-light.min.css',
   ]),
-  css: `x-prism {display: block; font-family: monospace; white-space: pre;}`,
-  html: `<pre><code class="language-{{language}}"><slot></slot></code></pre>`,
+  css: `x-highlight {}`,
+  html: `<pre class="language-{{language}}"></pre>`,
   attrs: { language: 'javascript' },
   connectedCallback(args) {
-    window['Prism'].highlightElement(this.querySelector('pre code'));
+    this.querySelector('pre').innerHTML = fixIndent(this._props.orgInnerHTML);
+    window['hljs'].highlightElement(this.querySelector('pre'));
   }
 })
 
@@ -27,7 +38,7 @@ export const parameters = {
       order: [ /* https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy */
         'Introduction', 
         'Getting Started',
-        'Elements',
+        'Features',
         'API',
         '*'
       ]

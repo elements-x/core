@@ -1,35 +1,28 @@
 import { customElement, waitForScriptLoad } from "../custom-element";
 
-declare global {
-  interface Window {
-    Prism?: any;
-  }
-}
-
 export default {
-  title: 'customElement()/Prism'
+  title: 'customElement()/HighlightJS'
 };
 
-customElement('x-prism', {
+customElement('x-highlight', {
   debug: true,
-  await: () => waitForScriptLoad('Prism', [
-    'https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.jss',
-    'https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css'
+  await: () => waitForScriptLoad('hljs', [
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css',
   ]),
-  css: `x-prism {display: block; font-family: monospace; white-space: pre;}`,
-  html: `<pre><code class="language-{{language}}"><slot></slot></code></pre>`,
-  attrs: {
-    language: 'javascript'
-  },
+  css: `x-highlight {display: block; font-family: monospace; white-space: pre;}`,
+  html: `<pre language="{{language}}"></pre>`,
+  attrs: { language: 'javascript' },
   connectedCallback(args) {
-    window.Prism.highlightElement(this.querySelector('pre code'));
+    this.querySelector('pre').innerHTML = this._props.orgInnerHTML.trim();
+    window['hljs'].highlightElement(this.querySelector('pre'));
   }
 })
 
-export const Prism = () => 
-`<x-prism>`+
+export const HighlightJS = () => 
+`<x-highlight>`+
 `function foo(items) {
   var x = "All this is syntax highlighted";
   return x;
 }` +
-`</x-prism>`;
+`</x-highlight>`;

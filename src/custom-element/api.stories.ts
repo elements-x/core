@@ -38,7 +38,7 @@ customElement('hello-attrs-props', {
 export default { title: 'API' };
 
 export const Overview = () => `
-<x-prism>
+<x-highlight>
   await?: () => Promise<any>; // Initialize required condition e.g. JQuery library
   attrs?: { [key: string]: AttrValue}; // reactive attrs change 
   props?: { [key: string]: any }; // reactive props change
@@ -53,7 +53,7 @@ export const Overview = () => `
   propsChangedCallback?: Function;
   render?: Function;
   debug?: boolean;
-</x-prism>`;
+</x-highlight>`;
 
 //@ts-ignore
 window.changeAttr = id => document.querySelector(id).setAttribute('world', `World ${new Date().getTime()}`);

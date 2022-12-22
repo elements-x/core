@@ -20,36 +20,36 @@ Elements-x is a simple library for building fast, lightweight custom elements.
 <div class="container row">
   <div class="col">
     <div class="fs-4 p-4">Simple</div>
-    It's a small wrapper of Custom Elements, 
-    <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements">a HTML standard</a> in a JSON format.
+    It's tiny wrapper of Custom Elements, 
+    <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements">a HTML standard</a>.
     With minimum coding, you can create your own custom elements in seconds.
   </div>
 
   <div class="col">
     <div class="fs-4 p-4">Easy</div>
-    What you need to know is a <code>customElement(options)</code> function only, to make a custom element to work.
-    <code>options</code> is just a JSON-expression of custom elements. Thus, you know it all already.
-    You do not need to know any new class properties, methods, inheritance tree, or any decorators.
+    What you need to know is a function <code>customElement(options)</code>.
+    <code>options</code> is just a JSON-expression of HTMLElement class, which you know it already.
+    You do not need to know any properties, methods, inheritance tree, or any decorators.
   </div>
 
   <div class="col">
     <div class="fs-4 p-4">Custom Element</div>
-    The return from <code>customElement()</code> is a custom element.
-    Custom elements work anywhere you use HTML, with any framework or none at all. 
+    The return from <code>customElement()</code> is a HTMLElement class.
+    Thus, it works anywhere you use HTML, with any framework or none at all. 
   </div>
 </div>
 
-```Typescript
+```javascript
 import { customElement } from '@elements-x/core';
 
-customElement('hello-custom-element', {
+customElement('my-element', {
   html: `<h1>{{hello}} {{world}}</h1>`,
-  css: `hello-custom-element { color: red; }`,
-  attrs : { hello: 'Hello', world: 'Custom Element' }
+  css: `my-element { color: red; }`,
+  attrs : { hello: 'Hello', world: 'My Element' }
 });
 
-<hello-custom-element></hello-custom-element>
+<my-element></my-element>
 ````
-<h1 class="text-danger">Hello Custom Element</h1>
+<h1 class="text-danger">Hello My Element</h1>
 
 

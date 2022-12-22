@@ -1,5 +1,5 @@
 import { customElement } from '../custom-element';
-export default { title: 'Elements' };
+export default { title: 'Features' };
 
 customElement('hello-custom-element', {
   html: `<h1>{{hello}} {{world}}</h1>`,
@@ -16,12 +16,12 @@ customElement('my-event', {
 
 export const Overview = () => `
 <p>
-  A component returned by <code>customElement()</code> function is a reusable HTML element. 
-  You can think of any HTML tag. It reacts to attribute change, property change, and fires events. 
+  <code>customElement()</code> returns a HTMLElement class and defines a custom element.
+  You can think of it as a HTML tag, which reacts to attribute change, property change, and fires events. 
 </p>
 
 Here's a sample:
-<x-prism>
+<x-highlight>
 import { customElement } from '@elements-x/core';
 
 customElement('hello-custom-element', {
@@ -29,33 +29,33 @@ customElement('hello-custom-element', {
   css: \`hello-custom-element { color: red; }\`,
   attrs : { hello: 'Hello', world: 'Custom Element' }
 });
-</x-prism>
+</x-highlight>
 
 <hello-custom-element hello="Hi," world="World"></hello-custom-element>
 `;
 
 export const LifeCycleCallbacks = () => `
 <p>
-Lifecycle callbacks are the exactly the same as 
+Lifecycles are the exactly the same as 
 <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks">
-custom elements life cycle
-</a>. Also it hast the following three functions for users' convenience.
+custom elements life cycles
+</a>. In addition, it hast the following three more functions for users' convenience.
   <ul>
     <li>
-      <code>await()</code>: called at the beginning of <code>connectedCallback()</code>.
+      <code>await()</code>: 
+      called at the beginning of <code>connectedCallback()</code>.
       This makes the processing to wait until the necessary library is imported.
     </li>
 
     <li>
-      <code>render()</code>: called at the end of  <code>connectedCallback()</code>.
-      Also users can call render() to rerender compiled html from 
-      <code class="text-secondary">attributeChangedCallback()</code> or 
-      <code class="text-secondary">propsChangedCallback()</code>
+      <code>render()</code>: 
+      called at the end of  <code>connectedCallback()</code>.
+      Also users can call <code>this.render()</code> to rebuild html from any callback function.
     </li>
 
     <li>
-      <code>propsChangedCallback()</code>: called when propery is changed.
-      You can rerender HTML by calling <code>render()</code> function.
+      <code>propsChangedCallback()</code>:
+      called when propery is changed, and registred at <code>connectedCallback()</code>.
     </li>
   </ul> 
 </p>
@@ -91,23 +91,23 @@ custom elements life cycle
 
 export const MustacheJSRendering = () => `
 It compiles your HTML using <a href="https://github.com/janl/mustache.js/#templates">Mustache</a>.
-<code>attrs</code> and <code>props</code> are passed to compile new HTML.
-<x-prism>
+<code>attrs</code> and <code>props</code> are passed as context to compile new HTML.
+<x-highlight>
 customElement('my-element', {
   html: '{{hello}} {{my}} {{world}}',
   attrs : { hello: 'Hi,', world: 'Custom Element' }
   props : { my: 'My' }
 })
-</x-prism>
+</x-highlight>
 
-From the above example, HTML is compiles like the following.
-<x-prism>
+From the above example, the given HTML is compiled like the following.
+<x-highlight>
 const newHTML = Mustache.render(
   '{{hello}} {{my}} {{world}}', 
   {hello: 'Hi,', world: 'Custom Element', my: 'My'}
 );
 // Output: 'Hi My World'
-</x-prism>
+</x-highlight>
 `;
 
 export const EventListeners = () => `
@@ -125,14 +125,24 @@ By defining <code>events</code> keys and values, you are ready to listen to any 
 For example, the following code
 </p>
 
-<x-prism>
+<x-highlight>
 customElement('my-event', {
   html: '&lt;button>Click Me&lt/button>',
   events : { 
     click: function(event) { alert('Click Happened'); }
   }
 })
-</x-prism>
+</x-highlight>
+
+From the above example, the given code works like the following.
+<x-highlight>
+class CustomElement extends HTMLElement {
+  connectedCallback() {
+    ...
+    this.addEventListener('click', function(event) { alert('Click Happened'); })
+  }
+}
+</x-highlight>
 <my-event></my-event>
 
 `;
@@ -143,41 +153,79 @@ If you provide <code>css</code> property, when your custom element is connected
 it adds &ltstyle id="<code>tagName</code>"> only once as the same as a popular framework. 
 </p>
 
+<x-highlight>
+customElement('my-element', {
+  css: \`my-element .some-class {
+    font-weight: bold;
+  }\`
+})
+</x-highlight>
+
+When run the above code, your <code>&lt;head></code> will append styling like this,
+and it will be removed when disconnected.
+
+<x-highlight language="html">
+&lt;html>
+  &lt;head>
+    ...
+    &lt;style id="my-element">
+      my-element .some-class {
+        font-weight: bold;
+      } 
+    &lt;/style>
+  &lt;/head>
+  &lt;body>
+    ...
+  &lt;/body>
+&lt;/html>
+</x-highlight>
+
 <p>
-Please be specific to the css to avoid css leaking to your custom element like the following
+To avoid css leaking, unless it's intentional, please provide a specific css scope. 
 </p>
-<x-prism language="css">
+<x-highlight language="css">
+  /* DON'T do this */
+  .some-class {
+    font-weight: bold;
+  }
+
+  /* Do this instead */
   my-element .some-class {
     font-weight: bold;
   }
-</x-prism>
+</x-highlight>
 
 <p>
-It does NOT use Shadow DOM. why?
+As you see, it does NOT use Shadow DOM. why?
 </p>
 
 <p>
-  1. Nodes inside Shadow DOM aren't accessible via things like 
-  <code>document.querySelector()</code> or <code>document.getElementById()</code>.
+  1. 
+  <strong>Nodes inside Shadow DOM aren't accessible via things like 
+  <code>document.querySelector()</code> or <code>document.getElementById()</code>
+  </strong>.
   This is good to prevent unwanted changes from other scripts. However, it's not good
   when you need to run some automated QA tests. It makes scripting so difficult.
 </p>
 <p>
-  2. All CSS in Shadow DOM is scoped to it. The advantage of it is styles don't bleed out to light DOM.
+  2. <strong>
+  All CSS in Shadow DOM is scoped to only inside of it. 
+  </strong>
+  The advantage of it is styles don't bleed out to light DOM.
   The disadvantage is it's hard to apply global styles such as themes.
   If you are creating a web page using traditional CSS frameworks like Bootstrap, 
   Foundation, Pure, Material Design, etc. Shadow DOM just won't work  because the 
   styling will not penetrate into the components.
 </p>
 <p>
-  3. Shadow DOM has some accessibility issues when ARIA attributes like <code>aria-labelledby</code>
+  3. <strong>Shadow DOM has some accessibility issues without extra coding</strong> when ARIA attributes like <code>aria-labelledby</code>
   and <code>aria-describedby</code> are used inside Shadow DOM because values of those cannot
   reach outside of its shadow DOM to reference the element from the other component.
   Not only that, but also there are some issues with label and id between light DOM and shadow DOM.
   Please check the following example
 </p>
   
-<x-prism>
+<x-highlight>
 customElements.define('my-input',class extends HTMLElement {
   connectedCallback() {
     this.attachShadow({mode: 'open'}).innerHTML =
@@ -189,7 +237,7 @@ customElements.define('my-input',class extends HTMLElement {
 &lt;label for="foo">
   Click this label &lt;my-input>&lt;/my-input>
 &lt;/label>
-</x-prism>
+</x-highlight>
 
 
 
