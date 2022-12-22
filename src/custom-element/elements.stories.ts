@@ -22,13 +22,14 @@ export const Overview = () => `
 
 Here's a sample:
 <x-prism>
-<code>import { customElement } from '@elements-x/core';
+import { customElement } from '@elements-x/core';
 
 customElement('hello-custom-element', {
   html: \`&lt;h1>{{hello}} {{world}}&lt;/h1>\`,
   css: \`hello-custom-element { color: red; }\`,
   attrs : { hello: 'Hello', world: 'Custom Element' }
-});</x-prism>
+});
+</x-prism>
 
 <hello-custom-element hello="Hi," world="World"></hello-custom-element>
 `;
@@ -90,7 +91,7 @@ custom elements life cycle
 
 export const MustacheJSRendering = () => `
 It compiles your HTML using <a href="https://github.com/janl/mustache.js/#templates">Mustache</a>.
-The current values of <code>attrs</code> and <code>props</code> are passed to compile new HTML.
+<code>attrs</code> and <code>props</code> are passed to compile new HTML.
 <x-prism>
 customElement('my-element', {
   html: '{{hello}} {{my}} {{world}}',

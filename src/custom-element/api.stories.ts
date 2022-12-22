@@ -40,7 +40,6 @@ export default { title: 'API' };
 export const Overview = () => `
 <x-prism>
   await?: () => Promise<any>; // Initialize required condition e.g. JQuery library
-  tagName?: string; // custom element tag name
   attrs?: { [key: string]: AttrValue}; // reactive attrs change 
   props?: { [key: string]: any }; // reactive props change
   html?: string;
