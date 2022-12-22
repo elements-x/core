@@ -41,7 +41,7 @@ custom elements life cycle
 </a>. Also it hast the following three functions for users' convenience.
   <ul>
     <li>
-      <code>preCondition()</code>: called at the beginning of <code>connectedCallback()</code>.
+      <code>await()</code>: called at the beginning of <code>connectedCallback()</code>.
       This makes the processing to wait until the necessary library is imported.
     </li>
 
@@ -61,7 +61,7 @@ custom elements life cycle
 
 <h4>When connected</h4>
 <ol>
-  <li>run <code>preCondition()</code></li>
+  <li>run <code>await()</code></li>
   <li>add style from <code>css</code></li>
   <li>set observedAttributes from <code>attrs</code></li>
   <li>set getters and setters from <code>props</code></li>

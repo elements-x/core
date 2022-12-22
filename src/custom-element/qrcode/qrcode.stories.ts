@@ -13,7 +13,7 @@ export default {
 
 customElement('x-qrcode', {
   debug: true,
-  preCondition: () => waitForScriptLoad('QRCode', ['//unpkg.com/qrcode@1.4.4/build/qrcode.min.js']),
+  await: () => waitForScriptLoad('QRCode', ['//unpkg.com/qrcode@1.4.4/build/qrcode.min.js']),
   html: `<img alt="{{value}}" src="{{imgUrl}}" /><br/>{{value}}`,
   css: `x-qrcode img[src=""] { display: none; }`,
   attrs: {

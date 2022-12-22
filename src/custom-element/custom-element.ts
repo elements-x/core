@@ -58,9 +58,9 @@ export function customElement(arg1: string | ICustomElementProps, arg2?: ICustom
 
       this._props.orgInnerHTML = this.innerHTML;
 
-      if (options.preCondition) {
-        debug(this.tagName, 'await options.preCondition()');
-        await options.preCondition();
+      if (options.await) {
+        debug(this.tagName, 'await options.await()');
+        await options.await();
       }
 
       if (options.css) {

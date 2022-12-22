@@ -39,7 +39,7 @@ export default { title: 'API' };
 
 export const Overview = () => `
 <x-prism>
-  preCondition?: () => Promise<any>; // Initialize required condition e.g. JQuery library
+  await?: () => Promise<any>; // Initialize required condition e.g. JQuery library
   tagName?: string; // custom element tag name
   attrs?: { [key: string]: AttrValue}; // reactive attrs change 
   props?: { [key: string]: any }; // reactive props change
@@ -61,15 +61,6 @@ window.changeAttr = id => document.querySelector(id).setAttribute('world', `Worl
 //@ts-ignore
 window.changeProp = id => document.querySelector(id).prop1 += 1
 
-
-export const preCondition = () => `
-preCondition
-`;
-
-export const tagName = () => `
-tagName
-`;
-
 export const attrs = () => `
   <hello-attrs-props id="test1" hello="Hi," world="My Element" hello-world></hello-attrs-props>
   <br/><br/>
@@ -80,49 +71,4 @@ export const props = () => `
   <hello-attrs-props id="test2"></hello-attrs-props>
   <br/><br/>
   <button onclick="changeProp('#test2')">Change prop</button>
-`;
-
-export const html = () => `
-html
-`;
-
-export const css = () => `
-css
-`;
-``
-
-export const events = () => `
-events
-`;
-
-export const constructor = () => `
-constructor()
-`;
-
-export const connectedCallback = () => `
-connectedCallback()
-`;
-
-export const disconnectedCallback = () => `
-disconnectedCallback()
-`;
-
-export const adoptedCallback = () => `
-adoptedCallback()
-`;
-
-export const attributeChangedCallback = () => `
-attributeChangedCallback()
-`;
-
-export const propsChangedCallback = () => `
-propsChangedCallback()
-`;
-
-export const render = () => `
-render
-`;
-
-export const degug = () => `
-debug
 `;

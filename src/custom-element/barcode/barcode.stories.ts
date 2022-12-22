@@ -13,7 +13,7 @@ export default {
 
 customElement('x-barcode', {
   debug: true,
-  preCondition: () => waitForScriptLoad('JsBarcode', ['//unpkg.com/jsbarcode/dist/JsBarcode.all.min.js']),
+  await: () => waitForScriptLoad('JsBarcode', ['//unpkg.com/jsbarcode/dist/JsBarcode.all.min.js']),
   html: `
     <svg class="my-barcode"
       jsbarcode-value="{{value}}"

@@ -2,7 +2,7 @@ import { customElement, waitForScriptLoad } from '../src/custom-element';
 
 customElement('x-prism', {
   debug: true,
-  preCondition: () => waitForScriptLoad('Prism', [
+  await: () => waitForScriptLoad('Prism', [
     'https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.jss',
     'https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css'
   ]),

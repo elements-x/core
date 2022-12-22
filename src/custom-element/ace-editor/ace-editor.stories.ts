@@ -13,7 +13,7 @@ export default {
 
 customElement('x-ace', {
   debug: true,
-  preCondition: () => waitForScriptLoad('ace', ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js']),
+  await: () => waitForScriptLoad('ace', ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js']),
   html: `<pre class="editor"></pre>`,
   css,
   attrs: {
