@@ -1,4 +1,4 @@
-import { customElement  } from "../custom-element";
+import { customElement  } from '../';
 import css from './clock.scss';
 import html from './clock.html';
 
@@ -13,7 +13,7 @@ import {
 } from './clock.func';
 
 export default {
-  title: 'customElement()/Clock'
+  title: 'Example/Clock'
 };
 
 customElement('x-clock', {
@@ -85,7 +85,7 @@ function onDrag(event) {
 const hour = new Date().getUTCHours();
 const minute = new Date().getUTCMinutes();
 
-export const Clock = () => `
+export const Clock = () => /*html*/ `
   <x-clock></x-clock>
   <x-clock run hour="${hour}" minute="${minute}">London</x-clock>
   <x-clock run>Toronto</x-clock>

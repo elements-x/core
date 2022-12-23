@@ -1,5 +1,5 @@
-import { customElement, waitForScriptLoad  } from "../custom-element";
-import { ICustomElementProps } from "../types";
+import { customElement, waitForScriptLoad  } from '../';
+import { ICustomElementOptions } from "../types";
 
 declare global {
   interface Window {
@@ -8,13 +8,13 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/BarCode'
+  title: 'Example/BarCode'
 };
 
 customElement('x-barcode', {
   debug: true,
   await: () => waitForScriptLoad('JsBarcode', ['//unpkg.com/jsbarcode/dist/JsBarcode.all.min.js']),
-  html: `
+  html: /*html*/ `
     <svg class="my-barcode"
       jsbarcode-value="{{value}}"
       jsbarcode-format="{{format}}"
@@ -68,7 +68,7 @@ window['setProps'] = (arr) => arr.forEach((el) => {
   document.querySelector(selector)[name] = value;
 })
 
-export const BarCode = () => `
+export const BarCode = () => /*html*/ `
   <button onclick="setAttrs(['#barcode,value,123456789012', '#barcode,format,upc'])">Attributes For UPC</button>
   <br/>
   <button onclick="setAttrs(['#barcode,value,Hello Barcode', '#barcode,format,code128'])">Attribute For Code128</button>

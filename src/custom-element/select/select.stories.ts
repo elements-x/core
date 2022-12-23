@@ -1,9 +1,9 @@
-import { customElement  } from "../custom-element";
-import { highlightNext, highlightValue, highlightSearch } from "./highlight";
+import { customElement } from '../';
+import { highlightNext, highlightValue, highlightSearch } from './highlight';
 import css from './select.scss';
 
 export default {
-  title: 'customElement()/Select'
+  title: 'Example/Select'
 };
 
 function selectHandler(event) {``
@@ -20,7 +20,7 @@ function selectHandler(event) {``
 
 customElement('x-select', {
   debug: true,
-  html: `
+  html: /*html*/ `
     <input aria-label="Select input"
       {{#size}}size="{{size}}"{{/size}} 
       {{#value}}value="{{value}}"{{/value}} 
@@ -80,7 +80,7 @@ customElement('x-select', {
   }
 });
 
-export const Select = () => `
+export const Select = () => /*html*/ `
 <x-select read-only placeholder="Choose one value" value="Hello World">
   <option value="">Choose One</option>
   <option>Hello</option>

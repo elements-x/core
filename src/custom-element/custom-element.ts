@@ -1,9 +1,7 @@
 import { addCss, removeCss, setPropsFromAttributes, resetHTML } from './util';
-import { ICustomElementProps } from './types';
+import { ICustomElementOptions } from './types';
 
-export { waitForScriptLoad } from './util';
-
-export function customElement(arg1: string | ICustomElementProps, arg2?: ICustomElementProps): any {
+export function customElement(arg1: string | ICustomElementOptions, arg2?: ICustomElementOptions): any {
   const [tagName, options] = 
     typeof arg1 === 'string' ? [arg1, arg2] :
     typeof arg1 === 'object' ? [undefined, arg1] : [];
@@ -92,10 +90,12 @@ export function customElement(arg1: string | ICustomElementProps, arg2?: ICustom
                 }
               }
             });
+            this['_props'][key] = prop.default;
           } else if (prop && prop.get) {
             Object.defineProperty(this, key, {
               get() { return prop.get.bind(this)(); },
             });
+            this._props[key] = prop.get.bind(this)();
           } else { 
             Object.defineProperty(this, key, {
               get() { return this._props[key]; },

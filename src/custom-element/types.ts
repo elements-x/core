@@ -3,7 +3,7 @@ type AttrValue = string | {
   default?: number | boolean | string | Date | Function
 };
 
-export interface ICustomElementProps {
+export interface ICustomElementOptions {
   await?: () => Promise<any>; // Initialize required condition e.g. JQuery library
   attrs?: { [key: string]: AttrValue}; // reactive attrs change 
   props?: { [key: string]: any }; // reactive props change

@@ -1,4 +1,4 @@
-import { customElement  } from "../custom-element";
+import { customElement  } from '../';
 import buttonCss from './button.scss';
 import tableCss from './table.scss';
 import tooltipCss from './tooltip.scss';
@@ -7,7 +7,7 @@ import radioCss from './radio.scss';
 import switchCss from './switch.scss';
 
 export default {
-  title: 'customElement()/Css Only'
+  title: 'Example/Css Only'
 };
 
 customElement('button', {debug: true, css: buttonCss});
@@ -17,7 +17,7 @@ customElement('input-checkbox', {debug: true,  css: checkboxCss});
 customElement('input-radio', {debug: true, css: radioCss});
 customElement('input-switch', {debug: true,  css: switchCss});
 
-export const Button = () => `
+export const Button = () => /*html*/ `
   <h3>Default</h3>
   <button x-style> Default </button>
   <button x-style class="primary"> Primary </button>
@@ -35,19 +35,19 @@ export const Button = () => `
   <button x-style class="no-style" disabled>♥</button>
 `;
 
-export const Tooltip = () => `
+export const Tooltip = () => /*html*/ `
   <span data-tooltip-left="This is a left tooltip">Help</span>
   <span data-tooltip="This is a tooltip">Help</span>
   <span data-tooltip="This is a tooltip with focus" tabindex="0">Help</span>
 `;
 
-export const Checkbox = () => `
+export const Checkbox = () => /*html*/ `
   <label>
     <input x-style type="checkbox" checked/> Hello Checkbox
   </label>
 `;
 
-export const Radio = () => `
+export const Radio = () => /*html*/ `
   <label>
     <input x-style type="radio" name="yes" checked>Yes</x-input>
   </label>
@@ -63,7 +63,7 @@ export const Radio = () => `
   </label>
 `;
 
-export const Switch = () => `
+export const Switch = () => /*html*/ `
   <input x-style type="checkbox" role="switch" id="ms1" />
   <label for="ms1">Custom Setting 1</label>
 
@@ -86,7 +86,7 @@ export const Switch = () => `
   </label>
 `;
 
-export const Table = () => `
+export const Table = () => /*html*/ `
 <table x-style>
   <tr>
     <th>Name</th> <th>Type</th> <th>Data</th> <th>Description</th>

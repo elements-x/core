@@ -1,14 +1,14 @@
-import { customElement, waitForScriptLoad  } from "../custom-element";
+import { customElement } from '../';
 import css from './textfield.scss';
 
 export default {
-  title: 'customElement()/TextField'
+  title: 'Example/TextField'
 };
 
 customElement('x-textfield', {
   debug: true,
   css, 
-  html: `
+  html: /*html*/ `
     {{#label}}
       <span class="label">{{label}}</span>
     {{/label}}
@@ -58,7 +58,7 @@ window['setProps'] = (arr) => arr.forEach((el) => {
   document.querySelector(selector)[name] = value;
 })
 
-export const TextField = () => `
+export const TextField = () => /*html*/ `
   <h3>With Label</h3>
   <x-textfield label="Label" value="Hello Textfield"></x-textfield> With value
   <br/><br/> <x-textfield label="Label"></x-textfield> When empty  

@@ -1,5 +1,5 @@
-import { customElement, waitForScriptLoad  } from "../custom-element";
-import { ICustomElementProps } from "../types";
+import { customElement, waitForScriptLoad  } from '../';
+import { ICustomElementOptions } from "../types";
 
 declare global {
   interface Window {
@@ -8,14 +8,14 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/QRCode'
+  title: 'Example/QRCode'
 };
 
 customElement('x-qrcode', {
   debug: true,
   await: () => waitForScriptLoad('QRCode', ['//unpkg.com/qrcode@1.4.4/build/qrcode.min.js']),
-  html: `<img alt="{{value}}" src="{{imgUrl}}" /><br/>{{value}}`,
-  css: `x-qrcode img[src=""] { display: none; }`,
+  html: /*html*/ `<img alt="{{value}}" src="{{imgUrl}}" /><br/>{{value}}`,
+  css: /*css*/ `x-qrcode img[src=""] { display: none; }`,
   attrs: {
     value: 'Hello QR Code'
   },
@@ -37,7 +37,7 @@ window['setProps'] = (arr) => arr.forEach((el) => {
   document.querySelector(selector)[name] = value;
 })
 
-export const QRCode = () => `
+export const QRCode = () => /*html*/ `
   <button onclick="setAttrs(['#qrcode,value,123456789012'])">Change Attribute 1</button>
   <br/>
   <button onclick="setAttrs(['#qrcode,value,Hello QR Code from soldair/node-qrcode'])">Change Attribute 2</button>

@@ -1,14 +1,14 @@
-import { customElement  } from "../custom-element";
+import { customElement  } from '../';
 import css from './file.scss';
 
 export default {
-  title: 'customElement()/File'
+  title: 'Example/File'
 };
 
 customElement('x-file', {
   debug: true,
   css, 
-  html: `
+  html: /*html*/ `
   <label class="x-file-input">
     <input type="file" multiple />
     <div class="x-slot">
@@ -107,7 +107,7 @@ function formatSize(bytes, decimalPoint = 2) {
     .toFixed(decimalPoint)) + ' ' + sizes[i];
 }
 
-export const File = () => `
+export const File = () => /*html*/ `
   <x-file></x-file>
   <br/><br/>
   <x-file>Click, copy/paste files, or drag/drop files here.</x-file>

@@ -14,10 +14,10 @@ customElement('x-highlight', {
   debug: true,
   await: () => waitForScriptLoad('hljs', [
     'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-light.min.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css',
   ]),
-  css: `x-highlight {}`,
-  html: `<pre class="language-{{language}}"></pre>`,
+  css: /*css*/ `x-highlight {}`,
+  html: /*html*/ `<pre class="language-{{language}}"></pre>`,
   attrs: { language: 'javascript' },
   connectedCallback(args) {
     this.querySelector('pre').innerHTML = fixIndent(this._props.orgInnerHTML);
@@ -39,8 +39,10 @@ export const parameters = {
         'Introduction', 
         'Getting Started',
         'Features',
-        'API',
-        '*'
+        'customElement()',
+        'waitForScriptLoad()',
+        'Example',
+        'CSS Collections'
       ]
     },
   },

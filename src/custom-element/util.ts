@@ -48,7 +48,11 @@ export function setPropsFromAttributes(el: HTMLElement, attrs: any) {
 
 export function resetHTML(el: HTMLElement, newHtml: string) {
   const orgHtml = el['_props'].orgInnerHTML as string;
-  const templateHtml = Mustache.render(newHtml, el['_props']);
+  const context = Object.entries(el['_props']).reduce( (acc, [key, value]) => {
+    acc[key] = el[key] || el['_props'][key];
+    return acc;
+  }, {})
+  const templateHtml = Mustache.render(newHtml, context);
 
   const toSlot = templateHtml.indexOf('</slot>') && orgHtml; 
   const slotHTML = templateHtml.replace(/<slot(.*?)>.*?<\/slot>/, (str, m1) => `<slot${m1}>${orgHtml}</slot>`);
@@ -91,7 +95,9 @@ export function waitForScriptLoad(id, scripts: string[]): Promise<any> {
           if (scriptSrc.endsWith('.js')) {
             if (!document.querySelector(`script[data-id=${id.toLowerCase()}]`)) {
               const el = document.createElement('script');
-              el.setAttribute('data-id', id.toLowerCase()); // why data-id?, with id, window.<id> returns an element first
+              // why data-id not id, window.<id> returns an element. 
+              // e.g. window.hljs is an element, not a function
+              el.setAttribute('data-id', id.toLowerCase()); 
               el.setAttribute('src', scriptSrc);
               document.head.appendChild(el);
             }

@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad  } from "../custom-element";
+import { customElement, waitForScriptLoad  } from "..";
 import css from './ace-editor.scss';
 
 declare global {
@@ -8,13 +8,13 @@ declare global {
 }
 
 export default {
-  title: 'customElement()/AceEditor'
+  title: 'Example/AceEditor'
 };
 
 customElement('x-ace', {
   debug: true,
   await: () => waitForScriptLoad('ace', ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js']),
-  html: `<pre class="editor"></pre>`,
+  html: /*html*/ `<pre class="editor"></pre>`,
   css,
   attrs: {
     theme: 'monokai',

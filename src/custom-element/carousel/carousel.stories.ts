@@ -1,9 +1,9 @@
-import { customElement  } from "../custom-element";
+import { customElement  } from '../';
 import css from './carousel.scss';
 import html from './carousel.html';
 
 export default {
-  title: 'customElement()/Carousel'
+  title: 'Example/Carousel'
 };
 
 customElement('x-carousel', {
@@ -69,7 +69,7 @@ function show(carouselEl, number, scroll=true) {
   carouselEl.querySelectorAll('.x-shortcuts .x-button')[carouselEl.selected].classList.add('x-active');
 }
 
-export const Carousel = () => `
+export const Carousel = () => /*html*/ `
   <x-carousel selected="2">
     <img class="img1" src="//picsum.photos/300/200?1">
     <img class="img2" src="//picsum.photos/300/200?2">
