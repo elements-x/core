@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started" />
+
+`@elements-x` is available as the `@elements-x/core` package via npm.
+
+```Bash
+$ npm i @elements-x/core
+```
+Then import into JavaScript or TypeScript files:
+
+```javascript
+import {customElement} from '@elements-x/core';
+
+customElement('hello-custom-element', {
+  html: /*html*/ `<h1>{{hello}} {{world}}</h1>`,
+  css: /*css*/ `hello-custom-element { color: red; }`,
+  attrs : { hello: 'Hello', world: 'Custom Element' }
+});
+```
+
+Now you can use the custom element in any HTML, with any framework or none at all. 

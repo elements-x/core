@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "unifiedjs.vscode-mdx",
+    "tobermory.es6-string-html",
+    "dbaeumer.vscode-eslint",
+    "yzhang.markdown-all-in-one"
+  ]
+}
