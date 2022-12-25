@@ -2,8 +2,9 @@
   "name": "@elements-x/core",
   "description": "Custom Element Build Engine",
   "scripts": {
-    "storybook": "start-storybook --port 6006 --docs",
-    "build-storybook": "build-storybook"
+    "start": "start-storybook --port 6006",
+    "build": "tsup src/lib/index.ts --dts --minify",
+    "build-storybook": "build-storybook --docs"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,8 @@
     "raw-loader": "^4.0.2",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsup": "^6.5.0"
   },
   "dependencies": {}
 }

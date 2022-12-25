@@ -4,6 +4,10 @@
     "target": "es2015",
     "module": "commonjs",
     "skipLibCheck": true,  /* Skip type checking all .d.ts files. */
+    "baseUrl": ".",
+    "paths": {
+      "@lib": ["src/lib"] // this mapping is relative to "baseUrl"
+    }
   },
   "include": ["src/**/*", "index.d.ts"]
 }

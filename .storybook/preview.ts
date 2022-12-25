@@ -1,7 +1,7 @@
-import { customElement } from '../src/custom-element';
-import { HighlightEl } from '../src/custom-element/highlight';
-import { TypingEffectEl } from '../src/custom-element/typing-effect';
-import { tableCss, buttonCss } from '../src/custom-element/css-only';
+import { customElement } from '../src/lib';
+import { HighlightEl } from '../src/examples/highlight';
+import { TypingEffectEl } from '../src/examples/typing-effect';
+import { tableCss, buttonCss } from '../src/examples/css-only';
 
 !customElements.get('x-highlight') && customElements.define('x-highlight', HighlightEl);
 !customElements.get('x-typing-effect') && customElements.define('x-typing-effect', TypingEffectEl);
