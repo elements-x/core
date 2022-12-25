@@ -2,9 +2,10 @@ import { customElement  } from '../';
 import css from './list.scss';
 
 export default {
-  title: 'Example/List'
+  title: 'Examples/List'
 };
 
+const js = `
 customElement('x-list', {
   debug: true,
   css, 
@@ -43,11 +44,11 @@ function init(ulEl) {
   });
 }
 
-function highlightNextEl(ulEl: HTMLElement, inc=1) {
+function highlightNextEl(ulEl, inc=1) {
   const allEls = ulEl.querySelectorAll('li');
   const visibles = Array.from(allEls)
     .filter(el => el.offsetParent !== null);
-  const highlightedEl: HTMLLIElement = ulEl.querySelector('.x-highlighted');
+  const highlightedEl = ulEl.querySelector('.x-highlighted');
   const curIndex = visibles.indexOf(highlightedEl);
   const nxtIndex = (visibles.length + curIndex + inc) % visibles.length;
 
@@ -55,7 +56,7 @@ function highlightNextEl(ulEl: HTMLElement, inc=1) {
   visibles[nxtIndex] && visibles[nxtIndex].classList.add('x-highlighted');
 }
 
-function highlightEl(ulEl: HTMLElement, el: HTMLElement) {
+function highlightEl(ulEl, el) {
   const highlightedEl = ulEl.querySelector('.x-highlighted');
   highlightedEl && highlightedEl.classList.remove('x-highlighted');
   el.classList.add('x-highlighted');
@@ -112,8 +113,9 @@ function keydownHandler(event) {
     event.preventDefault();
   }
 } 
+`;
 
-export const List = () => /*html*/ `
+const demoHTML = /*html*/ `
   <x-list selected="file-a">
     <ul>
       <li> File
@@ -158,3 +160,20 @@ export const List = () => /*html*/ `
     </ul>
   </x-list>
 `
+
+new Function('customElement', 'css', js)(customElement, css);
+
+export const List = () => /*html*/ `
+  <p>
+    Provide hierarchical and navigable view of <code>&lt;ul></code> tag and its list items.
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/><br/>
+
+  <h2 class="fs-5">Javascript:</h2>
+  <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>
+`;

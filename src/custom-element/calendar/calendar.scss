@@ -18,9 +18,9 @@ x-calendar {
       background: transparent;
       border: none;
       box-shadow: none;
-      &.x-prev.icon:before { content: '◀'; } /* allowing overriding the icon */
-      &.x-today.icon:before { content: '●'; }
-      &.x-next.icon:before { content: '▶'; }
+      &.x-prev:before { content: '◀'; } 
+      &.x-today:before { content: '●'; }
+      &.x-next:before { content: '▶'; }
     }
 
     .x-month-year {

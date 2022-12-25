@@ -1,14 +1,13 @@
-import { customElement  } from '../';
-import buttonCss from './button.scss';
-import tableCss from './table.scss';
-import tooltipCss from './tooltip.scss';
-import checkboxCss from './checkbox.scss';
-import radioCss from './radio.scss';
-import switchCss from './switch.scss';
+import { customElement } from '../custom-element';
 
-export default {
-  title: 'Example/Css Only'
-};
+import {
+  buttonCss, 
+  tableCss,
+  tooltipCss,
+  checkboxCss,
+  radioCss,
+  switchCss 
+} from './';
 
 customElement('button', {debug: true, css: buttonCss});
 customElement('table', {debug: true, css: tableCss});
@@ -16,6 +15,10 @@ customElement('tooltip', {debug: true, css: tooltipCss});
 customElement('input-checkbox', {debug: true,  css: checkboxCss});
 customElement('input-radio', {debug: true, css: radioCss});
 customElement('input-switch', {debug: true,  css: switchCss});
+
+export default {
+  title: 'Examples/Css Only'
+};
 
 export const Button = () => /*html*/ `
   <h3>Default</h3>
@@ -33,18 +36,22 @@ export const Button = () => /*html*/ `
   <button x-style class="icon" disabled>♥</button>
   <button x-style class="no-style">♥</button>
   <button x-style class="no-style" disabled>♥</button>
+  <x-highlight language="css">${buttonCss}</x-highlight>
 `;
 
 export const Tooltip = () => /*html*/ `
   <span data-tooltip-left="This is a left tooltip">Help</span>
   <span data-tooltip="This is a tooltip">Help</span>
   <span data-tooltip="This is a tooltip with focus" tabindex="0">Help</span>
+  <br/><br/><br/>
+  <x-highlight language="css">${tooltipCss}</x-highlight>
 `;
 
 export const Checkbox = () => /*html*/ `
   <label>
     <input x-style type="checkbox" checked/> Hello Checkbox
   </label>
+  <x-highlight language="css">${checkboxCss}</x-highlight>
 `;
 
 export const Radio = () => /*html*/ `
@@ -61,6 +68,7 @@ export const Radio = () => /*html*/ `
   <label>
     <input x-style type="radio" name="yes2" disabled>No</x-input>
   </label>
+  <x-highlight language="css">${radioCss}</x-highlight>
 `;
 
 export const Switch = () => /*html*/ `
@@ -84,6 +92,7 @@ export const Switch = () => /*html*/ `
     <input x-style type="checkbox" role="switch" checked disabled />
     <span>Disabled 2</span>
   </label>
+  <x-highlight language="css">${switchCss}</x-highlight>
 `;
 
 export const Table = () => /*html*/ `
@@ -109,5 +118,7 @@ export const Table = () => /*html*/ `
   <tr>
     <td>paste</td> <td>CustomEvent</td> <td>Object with detail</td> <td>Fired when contents pasted</td>
   </tr>
-</table>`;
+</table>
+<x-highlight language="css">${tableCss}</x-highlight>
+`;
 

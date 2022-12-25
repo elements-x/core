@@ -1,12 +1,13 @@
-import { customElement } from '../';
+import { customElement } from '..';
 import css from './calendar.scss'; 
 import { rebuildCalendar } from './rebuild-calendar';
 import { localDate } from '../util';
 
 export default {
-  title: 'Example/Calendar'
+  title: 'Examples/Calendar'
 };
 
+const js = /*javascript*/ `
 function changeHandler(event) { // Do not use arrow function here if 'this' is used
   const year = event.target.value;
   const [month, day] = [this.currentDate.getMonth(), this.currentDate.getDate()];
@@ -47,22 +48,21 @@ function clickHandler(e) {
 
 const XCalendar = customElement('x-calendar', {
   debug: true,
-  html: /*html*/ `
-    <div class="calendar">
-      <div class="x-header">
-        <div class="x-month-year">
-          <span id="x-month" class="x-month"></span>
-          <select id="x-years" class="x-years" read-only></select>
-        </div>
-        <button x="" id="x-prev-month" class="x-prev icon" arial-label="previous month"></button>
-        <button x="" id="x-today" class="x-today icon" arial-label="today"></button>
-        <button x="" id="x-next-month" class="x-next icon" arial-label="next month"></button>
-      </div>
-      <div class="x-week-days-container"></div>
-      <div class="x-days-container">
-      </div>
-    </div>
-  `,
+  html: 
+    '<div class="calendar">' +
+    '  <div class="x-header">' +
+    '    <div class="x-month-year">' +
+    '      <span id="x-month" class="x-month"></span>' +
+    '      <select id="x-years" class="x-years" read-only></select>' +
+    '    </div>' +
+    '    <button id="x-prev-month" class="x-prev" arial-label="previous month"></button>' +
+    '    <button id="x-today" class="x-today" arial-label="today"></button>' +
+    '    <button id="x-next-month" class="x-next" arial-label="next month"></button>' +
+    '  </div>' +
+    '  <div class="x-week-days-container"></div>' +
+    '  <div class="x-days-container">' +
+    '  </div>' +
+    '</div>',
   css: css, 
   attrs: {
     multiple: {type: Boolean},
@@ -82,15 +82,35 @@ const XCalendar = customElement('x-calendar', {
   render() {
     rebuildCalendar(this);
   },
-  propsChangedCallback(name, value) { // Do not use arrow function here if 'this' is used
-    this.render(true); // true means call user render() func. the same as the following
-    // this.render().then(_ => rebuildCalendar(this))
+  propsChangedCallback(name, value) {
+    this.render();
   }
 });
 XCalendar.HOLIDAYS = [
   {date: '2022-12-25', name: 'Christmas'}
 ];
-XCalendar.IS_SELECTABLE =  date => true ;
+XCalendar.IS_SELECTABLE = date => true;
+`;
 
-export const MiniCalendar = () => /*html*/ `<x-calendar class="small"></x-calendar>`;
-export const FullCalendar = () => /*html*/ `<x-calendar date="2022-12-31" multiple="true"></x-calendar>`;
+const demoHTML =  /*html*/ `
+  <h2 class="fs-5">Default</h2>
+  <x-calendar></x-calendar>
+  <h2 class="fs-5 pt-4">Mini Calendar</h2>
+  <x-calendar class="small" date="2022-12-31" multiple="true"></x-calendar>
+`;
+
+new Function
+  ('customElement', 'css', 'rebuildCalendar', 'localDate', js)
+  ( customElement, css, rebuildCalendar, localDate);
+
+export const Calendar = () => /*html*/ `
+  <p>Calendar</p>
+
+  <h2 class="fs-4">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  ${demoHTML}<br/><br/>
+
+  <h2 class="fs-5">Javascript:</h2>
+  <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>
+`;

@@ -1,28 +1,26 @@
-import { customElement, waitForScriptLoad } from '../';
+import { js, HighlightEl } from './index';
+!customElements.get('x-highlight') && customElements.define('x-highlight', HighlightEl);
 
 export default {
-  title: 'Example/HighlightJS'
+  title: 'Examples/HighlightJS'
 };
 
-customElement('x-highlight', {
-  debug: true,
-  await: () => waitForScriptLoad('hljs', [
-    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css',
-  ]),
-  css: /*css*/ `x-highlight {display: block; font-family: monospace; white-space: pre;}`,
-  html: /*html*/ `<pre language="{{language}}"></pre>`,
-  attrs: { language: 'javascript' },
-  connectedCallback(args) {
-    this.querySelector('pre').innerHTML = this._props.orgInnerHTML.trim();
-    window['hljs'].highlightElement(this.querySelector('pre'));
-  }
-})
-
-export const HighlightJS = () => 
-`<x-highlight>`+
-`function foo(items) {
+const demoHTML = /*html*/`<x-highlight>function foo(items) {
   var x = "All this is syntax highlighted";
   return x;
-}` +
-`</x-highlight>`;
+}</x-highlight>`;
+
+export const HighlightJS = () => /*html*/ `
+  <p>
+    Convert a section to a syntax highlighted view, https://highlightjs.org/ 
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/><br/>
+
+  <h2 class="fs-5">Javascript:</h2>
+  <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>
+`;

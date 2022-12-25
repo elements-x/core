@@ -2,6 +2,17 @@ x-carousel {
   display: block; 
   position: relative; 
 
+  .x-default {
+    min-width: 50VW;
+    height: 200PX;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #CCC;
+    color: #FFF;
+    font-size: 5rem;
+  }
+
   .x-items {
     overflow: auto; 
     display: flex;

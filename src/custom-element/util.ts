@@ -40,18 +40,23 @@ export function setPropsFromAttributes(el: HTMLElement, attrs: any) {
         defaultValue;
       el['_props'][key] = value;
     } else {
-      el['_props'][key] = attrValue || attrs[key];
+      const value = attrValue || attrs[key];
+      el['_props'][key] = value;
     }
-
   }
 }
 
 export function resetHTML(el: HTMLElement, newHtml: string) {
   const orgHtml = el['_props'].orgInnerHTML as string;
-  const context = Object.entries(el['_props']).reduce( (acc, [key, value]) => {
-    acc[key] = el[key] || el['_props'][key];
-    return acc;
-  }, {})
+  const context = {};
+  for (var key in el['_props']) {
+    context[key] = el['_props'][key];
+    try {
+      el[key] && (context[key] = el[key]);
+    } catch(e) {
+      // in case el[key] getter is called before HTML is set. e.g. this.querySelector('.foo');
+    }
+  }
   const templateHtml = Mustache.render(newHtml, context);
 
   const toSlot = templateHtml.indexOf('</slot>') && orgHtml; 

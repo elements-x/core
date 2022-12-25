@@ -2,23 +2,24 @@ import { customElement  } from '../';
 import css from './file.scss';
 
 export default {
-  title: 'Example/File'
+  title: 'Examples/File'
 };
 
+const js = /*javascript*/ `
 customElement('x-file', {
   debug: true,
   css, 
-  html: /*html*/ `
-  <label class="x-file-input">
-    <input type="file" multiple />
-    <div class="x-slot">
-      <slot>Click, copy/paste files, or drag/drop files here.  The selected files are displayed below.</slot>
-    </div>
-  </label>
-  <div class="x-file-list"></div>
-  `,
-  attrs: {
-  },
+  html: 
+    '<label class="x-file-input">' +
+    '  <input type="file" multiple />' +
+    '  <div class="x-slot">' +
+    '    <slot>' +
+    '      Click, copy/paste files, or drag/drop files here.' +
+    '      The selected files are displayed below.' +
+    '   </slot>' +
+    '  </div>' +
+    '</label>' +
+    '<div class="x-file-list"></div>',
   props: {
     inputEl: {
       get() { return this.querySelector('input'); }
@@ -81,19 +82,19 @@ function showFile(file) {
   const fileEl = document.createElement('div');
   fileEl.classList.add('x-file');
   const imgEl = file.type.startsWith('image') ?
-    `<img class="x-preview" src="${file.dataURL}" />`: `<span>${file.type}</span>`;
+    '<img class="x-preview" src="' + file.dataURL + '" />': '<span>' + file.type + '</span>';
 
   fileEl.insertAdjacentHTML('beforeend', 
-    `<div class="x-name">${file.name}</div>` +
-    `<div class="x-preview">${imgEl}(${formatSize(file.size)})</div>` +
-    `<div class="x-buttons">` +
-      `<button class="x-delete">🗑</button>` +
-    `</div>` +
-    `<div class="x-progress"></div>`
+    '<div class="x-name">' + file.name + '</div>' +
+    '<div class="x-preview">' + imgEl + '(' + formatSize(file.size) + ')</div>' +
+    '<div class="x-buttons">' +
+      '<button class="x-delete">🗑</button>' +
+    '</div>' +
+    '<div class="x-progress"></div>'
   );
   fileEl.querySelector('.x-delete').addEventListener('click', event => {
     this.files.splice(this.files.indexOf(file), 1);
-    (event.target as HTMLElement).closest('.x-file').remove();
+    event.target.closest('.x-file').remove();
     this.dispatchEvent(new CustomEvent('x-select', {bubbles: true, detail: this.files}));
   });
 
@@ -106,9 +107,29 @@ function formatSize(bytes, decimalPoint = 2) {
   return parseFloat((bytes / Math.pow(1000, i))
     .toFixed(decimalPoint)) + ' ' + sizes[i];
 }
+`;
 
-export const File = () => /*html*/ `
+const demoHTML = /*html*/ `
   <x-file></x-file>
   <br/><br/>
-  <x-file>Click, copy/paste files, or drag/drop files here.</x-file>
-`
+  <x-file>My own guide message here replacing the default.</x-file>
+`;
+
+new Function('customElement', 'css', js)(customElement, css);
+
+export const File = () => /*html*/ `
+  <p>
+    To collect files, user can drag/drop or copy/paste files.
+    As the result, users can see the preview of file if the collected file is an image.
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/><br/>
+
+  <h2 class="fs-5">Javascript:</h2>
+  <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>
+`;
+

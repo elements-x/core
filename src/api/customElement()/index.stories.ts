@@ -7,9 +7,9 @@ import { eventsHTML } from './events';
 import { renderHTML } from './render';
 import { callbacksHTML } from './callbacks';
 
-export default { title: 'customElement()' };
+export default { title: 'API/customElement()' };
 
-export const Options = () =>/*html*/ `
+export const Primary = () =>/*html*/ `
 
 <h2> customElement(tagName, options)</h2>
 
@@ -30,8 +30,7 @@ export const Options = () =>/*html*/ `
     attributeChangedCallback?: Function; // (name: string, oldValue: string, newValue: string); // Invoked when attribute is changed
     propsChangedCallback?: Function;
   }
-</x-highlight>
-` 
+</x-highlight>` 
 + awaitHTML
 + attrsHTML
 + propsHTML
@@ -39,6 +38,6 @@ export const Options = () =>/*html*/ `
 + cssHTML
 + eventsHTML
 + renderHTML
-+ callbacksHTML
-;
++ callbacksHTML;
+Primary.storyName = 'customElement()';
 

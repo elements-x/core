@@ -49,8 +49,8 @@ export default create({
   // booleanSelectedBg: '#FFFFFF',
 
   // Brand
-  brandTitle: 'My custom storybook',
-  brandUrl: '//elements-x.com',
-  brandImage: '//elements-x.com/assets/elements-x.png',
+  brandTitle: 'The simplest custom elements library',
+  brandUrl: '/',
+  brandImage: '/logo.png',
   brandTarget: '_self',
 });

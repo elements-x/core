@@ -2,7 +2,7 @@
   "name": "@elements-x/core",
   "description": "Custom Element Build Engine",
   "scripts": {
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook --port 6006 --docs",
     "build-storybook": "build-storybook"
   },
   "repository": {

@@ -1,7 +1,7 @@
 import { customElement } from '../../custom-element';
 
 customElement('my-event', {
-  html: '<button>Click Me</button>',
+  html: '<button x-style>Click Me</button>',
   events: {
     click: function(event) { alert('Click Happened'); }
   }

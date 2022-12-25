@@ -6,7 +6,8 @@ customElement('hello-custom-element', {
   attrs : { hello: 'Hello', world: 'Custom Element' }
 })
 
-export const Overview = () => /*html*/ `
+
+export const Overview = ({}) => /*html*/ `
   <p>
     <code>customElement()</code> returns a HTMLElement class and defines a custom element.
     You can think of it as a HTML tag, which reacts to attribute change, property change, and fires events. 

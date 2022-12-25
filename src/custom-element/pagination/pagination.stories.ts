@@ -2,19 +2,19 @@ import { customElement  } from '../';
 import css from './pagination.scss';
 
 export default {
-  title: 'Example/Pagination'
+  title: 'Examples/Pagination'
 };
 
+const js = /* javascript */ `
 customElement('x-pagination', {
   debug: true,
   css, 
-  html: /*html*/ `
-    <button class="first page navigation" title="first page"></button>
-    <button class="prev page navigation" title="previous page"></button>
-    <div class="pages"></div>
-    <button class="next page navigation" title="next page"></button>
-    <button class="last page navigation" title="last page"></button>
-  `,
+  html: 
+    '<button class="first page navigation" title="first page"></button>' +
+    '<button class="prev page navigation" title="previous page"></button>' +
+    '<div class="pages"></div>' +
+    '<button class="next page navigation" title="next page"></button>' +
+    '<button class="last page navigation" title="last page"></button>',
   attrs: {
     total: {type: Number, default: 100},
     index: {type: Number, default: 0},
@@ -83,10 +83,10 @@ function updatePageButtons(paginationEl) {
   pagesEl.innerHTML = '';
   getPages(paginationEl._props).forEach(page => {
     const pageNum = (page - 1) * numPerPage;
-    const selected = pageNum === index ? 'selected' : '';
+    const selected = pageNum === index ? ' selected' : '';
 
     pagesEl.insertAdjacentHTML('beforeend', 
-      `<button x="" class="page ${selected}" index="${pageNum}">${page}</button>`
+      '<button class="page' + selected + '" index="' + pageNum + '">' + page + '</button>'
     );
   });
 }
@@ -113,7 +113,28 @@ function getPages({total, numPerPage, index, numPages}) {
   var length = maxPage - minPage + 1;
   return [...Array(length).keys()].map(el => el + minPage);
 }
+`;
+
+const demoHTML = /*html*/ `
+  <x-pagination></x-pagination>
+  <br/>
+  <x-pagination total="500" index="5" num-per-page="15" num-pages="7"></x-pagination>
+`;
+
+new Function('customElement', 'css', js)(customElement, css);
 
 export const Pagination = () => /*html*/ `
-  <x-pagination></x-pagination>
-`
+  <p>
+    It enables the user to select a specific page from a range of pages that 
+    are composed by total records, number of records per page, and the current row number.  
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/>
+
+  <h2 class="fs-5">Javascript:</h2>
+  <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>
+`;

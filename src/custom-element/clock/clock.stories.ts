@@ -13,7 +13,7 @@ import {
 } from './clock.func';
 
 export default {
-  title: 'Example/Clock'
+  title: 'Examples/Clock'
 };
 
 customElement('x-clock', {
@@ -85,10 +85,23 @@ function onDrag(event) {
 const hour = new Date().getUTCHours();
 const minute = new Date().getUTCMinutes();
 
-export const Clock = () => /*html*/ `
-  <x-clock></x-clock>
+const demoHTML = /*html*/ `
+  <x-clock>My City</x-clock>
   <x-clock run hour="${hour}" minute="${minute}">London</x-clock>
   <x-clock run>Toronto</x-clock>
   <x-clock run hour="${hour + 9}" minute="${minute}">Seoul</x-clock>
   <x-clock run hour="${hour - 8}" minute="${minute}">Vancouver</x-clock>
-`
+`;
+
+export const Clock = () => /*html*/ `
+  <p>
+    An analog clock with given hour and minute.  With run="true", clock runs by itself.
+    Updatable hour and minute by dragging hour hand or minute hand.
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/>
+`;

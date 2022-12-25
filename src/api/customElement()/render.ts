@@ -46,6 +46,6 @@ export const renderHTML = /*html*/ `
   </x-highlight>
 
   <my-render class="d-block border border-info p-2"></my-render>
-  <button onclick="document.querySelector('my-render').setAttribute('foo', Math.random()*10)">Change attr</button>
-  <button onclick="document.querySelector('my-render').bar = Math.random()">Change prop</button>
+  <button x-style onclick="document.querySelector('my-render').setAttribute('foo', Math.random()*10)">Change attr</button>
+  <button x-style onclick="document.querySelector('my-render').bar = Math.random()">Change prop</button>
 `;

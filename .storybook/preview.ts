@@ -1,29 +1,13 @@
-import { customElement, waitForScriptLoad } from '../src/custom-element';
+import { customElement } from '../src/custom-element';
+import { HighlightEl } from '../src/custom-element/highlight';
+import { TypingEffectEl } from '../src/custom-element/typing-effect';
+import { tableCss, buttonCss } from '../src/custom-element/css-only';
 
-function fixIndent(code) {
-  code = code.replace(/^([ \t]*\n+){1,}|[\n\t ]+$/g, ''); // remove empty first/last line
-  const firstIndent = (code.match(/^([ ]+)/) || [])[1];
-  if (firstIndent) {
-    const re = new RegExp(`^${firstIndent}`, 'gm');
-    return code.replace(re, '');
-  }
-  return code;
-}
+!customElements.get('x-highlight') && customElements.define('x-highlight', HighlightEl);
+!customElements.get('x-typing-effect') && customElements.define('x-typing-effect', TypingEffectEl);
 
-customElement('x-highlight', {
-  debug: true,
-  await: () => waitForScriptLoad('hljs', [
-    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css',
-  ]),
-  css: /*css*/ `x-highlight {}`,
-  html: /*html*/ `<pre class="language-{{language}}"></pre>`,
-  attrs: { language: 'javascript' },
-  connectedCallback(args) {
-    this.querySelector('pre').innerHTML = fixIndent(this._props.orgInnerHTML);
-    window['hljs'].highlightElement(this.querySelector('pre'));
-  }
-})
+customElement('table', {css: tableCss})
+customElement('button', {css: buttonCss})
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -39,10 +23,9 @@ export const parameters = {
         'Introduction', 
         'Getting Started',
         'Features',
-        'customElement()',
-        'waitForScriptLoad()',
-        'Example',
-        'CSS Collections'
+        'API',
+        'Examples',
+        '*'
       ]
     },
   },

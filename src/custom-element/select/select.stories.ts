@@ -3,10 +3,10 @@ import { highlightNext, highlightValue, highlightSearch } from './highlight';
 import css from './select.scss';
 
 export default {
-  title: 'Example/Select'
+  title: 'Examples/Select'
 };
 
-function selectHandler(event) {``
+function selectHandler(event) {
   if (event.target.closest('slot')) { // option mouse clicked
     this.value = event.target.value || event.target.getAttribute('value');
     this.dispatchEvent(new Event('change', {bubbles: true}));
@@ -37,7 +37,7 @@ customElement('x-select', {
     disabled: {type: Boolean},
     required: {type: Boolean},
     placeholder: ' ',
-    readonly: {type: Boolean}
+    readOnly: {type: Boolean}
   },
   props: {
     value: {
@@ -56,7 +56,7 @@ customElement('x-select', {
     mousedown: selectHandler,   
     // click(event) {...} //  click -> inputEl.blur(), hide dropdown
     // do not call selectHandler with click event, but with mousedown
-    focusin(event) { console.log('focusin', event.target)},
+    focusin(event) { /* console.log('focusin', event.target) */ },
     keydown(event) {
       if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(event.key)) {
         if      (event.key === 'ArrowDown') { highlightNext(this, 1); }
@@ -80,12 +80,26 @@ customElement('x-select', {
   }
 });
 
-export const Select = () => /*html*/ `
+const demoHTML = /*html*/ `
 <x-select read-only placeholder="Choose one value" value="Hello World">
   <option value="">Choose One</option>
   <option>Hello</option>
   <option>Hello World</option>
   <option>Foo</option>
-  <option disabled>4</option>
+  <option disabled>Disabled</option>
   <option>Foo Bar</option>
 </x-select>`
+
+export const Select = () => /*html*/ `
+  <p>
+    Alternative to the traditional &lt;select> tag, which is searchable and stylable.
+  </p>
+
+  <h2 class="fs-5">HTML:</h2>
+  <x-highlight language="html">${demoHTML.replace(/</g, '&lt;')}</x-highlight>
+
+  <h2 class="fs-5">Result:</h2>
+  ${demoHTML}<br/><br/>
+`;
+  // <h2 class="fs-5">Javascript:</h2>
+  // <x-highlight>${js.replace(/</g, '&lt;')}</x-highlight>

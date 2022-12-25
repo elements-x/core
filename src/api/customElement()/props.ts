@@ -55,7 +55,7 @@ export const propsHTML = /*html*/ `
   The value would be any including a function. When a function is gievn as a value, the function will be performed as the initial value.
 </p>
 
-<table>
+<table x-style>
   <tr> 
     <th>This</th><th>is equivalent to</th> 
   </tr>

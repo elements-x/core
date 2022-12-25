@@ -1,34 +1,44 @@
 
 export default {
-  title: 'Example/CSS Collections'
+  title: 'Examples/CSS Collections'
 };
 
-export const CircleInsideWithBoxShadow = () => /*html*/ `
-<style>
-  [has-blocks] > div { display: inline-block;}
-  .circle-inside {
-    background: blue;
-    border-radius: 50%;
-    width: 140px; 
-    height: 140px;
-  }
-  .circle-inside:nth-child(2) {
-    box-shadow: inset 0 0 0 20px red; 
-  }
-  .circle-inside:nth-child(3) {
-    box-shadow: inset 0 0 0 20px red, inset 0 0 0 40px yellow; 
-  }
-</style>
-<div has-blocks>
-  <div class="circle-inside"></div>
-  <div class="circle-inside"></div>
-  <div class="circle-inside"></div>
-</div>
+export const Default = () => /*html*/ `
+  This is a collection of useful CSS, used to make these example custom elements;
 `;
 
-export const CircleInsideWithBackground = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const CircleInsideWithBoxShadow = () => {
+  const css = /*css*/ `
+    .circle-inside {
+      background: blue;
+      border-radius: 50%;
+      width: 140px; 
+      height: 140px;
+    }
+    .circle-inside:nth-child(2) {
+      box-shadow: inset 0 0 0 20px red; 
+    }
+    .circle-inside:nth-child(3) {
+      box-shadow: inset 0 0 0 20px red, inset 0 0 0 40px yellow; 
+    }`;
+
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="circle-inside"></div>
+      <div class="circle-inside"></div>
+      <div class="circle-inside"></div>
+    </div>
+
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
+
+export const CircleInsideWithBackground = () => {
+  const css = /*css*/ `
     .circle-inside-bg {
       width: 160px;
       height: 160px;
@@ -43,19 +53,25 @@ export const CircleInsideWithBackground = () => /*html*/ `
     }
     .circle-inside-bg:nth-child(4) {
       background-image: radial-gradient( circle at 50%, blue 20px, yellow 0 40px, red 0 60px, green 0 80px );
-    }
-  </style>
-  <div has-blocks>
-    <div class="circle-inside-bg"></div>
-    <div class="circle-inside-bg"></div>
-    <div class="circle-inside-bg"></div>
-    <div class="circle-inside-bg"></div>
-  </div>
-`;
+    }`;
 
-export const CircleOutsideWithBoxShadow = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="circle-inside-bg"></div>
+      <div class="circle-inside-bg"></div>
+      <div class="circle-inside-bg"></div>
+      <div class="circle-inside-bg"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
+
+export const CircleOutsideWithBoxShadow = () => {
+  const css = /*css*/ `
     .circle-outside {
       margin: 0 40px;
       border-radius: 50%;
@@ -69,17 +85,23 @@ export const CircleOutsideWithBoxShadow = () => /*html*/ `
     .circle-outside:nth-child(3) {
       box-shadow: 0 0 0 20px yellow, 0 0 0 40px red;
     }
-  </style>
-  <div has-blocks style="padding: 20px">
-    <div class="circle-outside"></div>
-    <div class="circle-outside"></div>
-    <div class="circle-outside"></div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks style="padding: 20px">
+      <div class="circle-outside"></div>
+      <div class="circle-outside"></div>
+      <div class="circle-outside"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-export const BorderRadius = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const BorderRadius = () => {
+  const css = /*css*/ `
     .br { 
       width: 120px;
       height: 120px;
@@ -99,24 +121,30 @@ export const BorderRadius = () => /*html*/ `
     .br-8 { width: 60px; height: 60px; border-radius: 0 0 0 100%;}
     .br-9 { border-radius: 50% 0 50% 0; }
     .br-a { border-radius: 50% 0 50% 50%; }
-  </style>
-  <div has-blocks>
-    <div class="br-1 br"></div>
-    <div class="br-2 br"></div>
-    <div class="br-3 br"></div>
-    <div class="br-4 br"></div>
-    <div class="br-5 br"></div>
-    <div class="br-6 br"></div>
-    <div class="br-7 br"></div>
-    <div class="br-8 br"></div>
-    <div class="br-9 br"></div>
-    <div class="br-a br"></div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="br-1 br"></div>
+      <div class="br-2 br"></div>
+      <div class="br-3 br"></div>
+      <div class="br-4 br"></div>
+      <div class="br-5 br"></div>
+      <div class="br-6 br"></div>
+      <div class="br-7 br"></div>
+      <div class="br-8 br"></div>
+      <div class="br-9 br"></div>
+      <div class="br-a br"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-export const ConicGradient = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const ConicGradient = () => {
+  const css = /*css*/ `
     .cr { 
       width: 120px;
       height: 120px;
@@ -130,20 +158,26 @@ export const ConicGradient = () => /*html*/ `
     .cr-4 { background: conic-gradient(red 25%, green 0); }
     .cr-5 { background: conic-gradient(red 25%, green 0 50%, blue 0); }
     .cr-6 { background: conic-gradient(red 25%, green 0 50%, blue 0 75%, yellow 0); }
-  </style>
-  <div has-blocks>
-    <div class="cr-1 cr"></div>
-    <div class="cr-2 cr"></div>
-    <div class="cr-3 cr"></div>
-    <div class="cr-4 cr"></div>
-    <div class="cr-5 cr"></div>
-    <div class="cr-6 cr"></div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="cr-1 cr"></div>
+      <div class="cr-2 cr"></div>
+      <div class="cr-3 cr"></div>
+      <div class="cr-4 cr"></div>
+      <div class="cr-5 cr"></div>
+      <div class="cr-6 cr"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-export const LinearGradient = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const LinearGradient = () => {
+  const css = /*css*/ `
     .lr { 
       width: 120px;
       height: 120px;
@@ -156,19 +190,25 @@ export const LinearGradient = () => /*html*/ `
     .lr-3 { background: linear-gradient(to right, blue 33.33%, white 33.33%, white 66.66%, red 0); }
     .lr-4 { background: repeating-linear-gradient( to bottom, red, red 20px, white 20px, white 30px); }
     .lr-5 { background: repeating-linear-gradient( to bottom right, red, red 20px, white 20px, white 30px) }
-  </style>
-  <div has-blocks>
-    <div class="lr-1 lr"></div>
-    <div class="lr-2 lr"></div>
-    <div class="lr-3 lr"></div>
-    <div class="lr-4 lr"></div>
-    <div class="lr-5 lr"></div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="lr-1 lr"></div>
+      <div class="lr-2 lr"></div>
+      <div class="lr-3 lr"></div>
+      <div class="lr-4 lr"></div>
+      <div class="lr-5 lr"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-export const ClipPath = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const ClipPath = () => {
+  const css = /*css*/ `
     .cp { 
       width: 120px;
       height: 120px;
@@ -186,20 +226,25 @@ export const ClipPath = () => /*html*/ `
     .cp-3 { clip-path: polygon(50% 0, 0 100%, 100% 100%); }
     .cp-4 { clip-path: circle(100% at 0 100%); }
     .cp-5 { clip-path: circle(50% at 100% 50%); }
-  </style>
-  <div has-blocks>
-    <div class="cp-1 cp">HI</div>
-    <div class="cp-2 cp"></div>
-    <div class="cp-3 cp"></div>
-    <div class="cp-4 cp"></div>
-    <div class="cp-5 cp"></div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div has-blocks>
+      <div class="cp-1 cp">HI</div>
+      <div class="cp-2 cp"></div>
+      <div class="cp-3 cp"></div>
+      <div class="cp-4 cp"></div>
+      <div class="cp-5 cp"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-
-export const MixBlendMode = () => /*html*/ `
-  <style>
-    [has-blocks] > div { display: inline-block;}
+export const MixBlendMode = () => {
+  const css = /*css*/ `
     .mbm-1 {
       width: 200px;
       height: 200px;
@@ -226,18 +271,24 @@ export const MixBlendMode = () => /*html*/ `
       object-fit: cover;
       object-position: center;
     } 
-  </style>
-  <div class="mbm-1">
-    <video class="video" autoplay="" loop="" width="100%" preload="true" muted="true">
-      <source src="//sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4">
-    </video>
-    <div class="text">HI</div>
-  </div>
-`;
+  `;
+  return /*html*/ `
+    <style>
+      [has-blocks] > div { display: inline-block;}
+      ${css}
+    </style>
+    <div class="mbm-1">
+      <video class="video" autoplay="" loop="" width="100%" preload="true" muted="true">
+        <source src="//sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4">
+      </video>
+      <div class="text">HI</div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}
 
-export const TagGukGi = () => /*html*/ `
-  <style>
-    [inline-flex] > div { display: inline-flex;}
+export const TagGukGi = () => {
+  const css = /*css*/ `
     .custom-1 {
       width: 120px;
       height: 120px;
@@ -290,13 +341,20 @@ export const TagGukGi = () => /*html*/ `
     .custom-2.six:after {
       box-shadow: 0 38px 0 #FFF, 0 76px 0 #FFF;
     }
-  </style>
+  `;
+  return /*html*/ `
+    <style>
+      [inline-flex] > div { display: inline-flex;}
+      ${css}
+    </style>
 
-  <div inline-flex>
-    <div class="custom-1"></div>
-    <div class="custom-2 three"></div>
-    <div class="custom-2 four"></div>
-    <div class="custom-2 five"></div>
-    <div class="custom-2 six"></div>
-  </div>
-`;
+    <div inline-flex>
+      <div class="custom-1"></div>
+      <div class="custom-2 three"></div>
+      <div class="custom-2 four"></div>
+      <div class="custom-2 five"></div>
+      <div class="custom-2 six"></div>
+    </div>
+    <x-highlight language="css">${css}</x-highlight>
+  `;
+}

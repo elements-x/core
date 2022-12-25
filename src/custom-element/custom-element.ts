@@ -36,7 +36,7 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
           }
         }
 
-        clearTimeout(this._timer); // the same as debounce 10ms. Only the last one runs
+        clearTimeout(this._timer); // the same as debounce eems. Only the last one runs
         this._timer = setTimeout(render, 50);
       })
     }
@@ -73,7 +73,7 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
       }
 
       if (options.props) {
-        debug(this.tagName, 'setting props ------------------------------------------');
+        debug(this.tagName, 'setting options.props');
         for (let key in options.props) {
           const prop = options.props[key]; // e.g., 123, or {get: Function, set: Function}
           if (prop && prop.get && prop.set) {
@@ -90,12 +90,16 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
                 }
               }
             });
-            this['_props'][key] = prop.default;
+            this['_props'][key] = this._props[key] || prop.default;
           } else if (prop && prop.get) {
             Object.defineProperty(this, key, {
               get() { return prop.get.bind(this)(); },
             });
-            this._props[key] = prop.get.bind(this)();
+            try {
+              this._props[key] = prop.get.bind(this)();
+            } catch(e) {
+              // it's possible to throw an error because HTML is not fully rendered
+            }
           } else { 
             Object.defineProperty(this, key, {
               get() { return this._props[key]; },
@@ -110,7 +114,15 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
                 }
               }
             });
-            this[key] = (typeof prop === 'function') ? await prop.bind(this)(this) : prop;
+            if (typeof prop === 'function') {
+              try {
+                this[key] = await prop.bind(this)(this);
+              } catch(e) {
+                // it's possible to throw an error because HTML is not fully rendered
+              }
+            } else {
+              this[key] = prop;
+            }
           }
         } 
       }
