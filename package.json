@@ -1,6 +1,6 @@
 {
   "name": "@elements-x/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Custom Element Build Engine",
   "scripts": {
     "start": "start-storybook --port 6006",
