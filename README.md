@@ -6,7 +6,7 @@ The simplest custom element library for building fast, lightweight, and reusable
 
 
 **Simple**
-It's tiny wrapper of Custom Elements,a HTML standard. With minimum coding, you can create your own custom elements in seconds.
+It's tiny(5KB gzipped) wrapper of Custom Elements. With minimum coding, you can create your own custom elements in minutes.
 
 **Custom Element**
 The return from `customElement()` is a HTMLElement. Thus, it works anywhere you use HTML, with any framework or none at all.
