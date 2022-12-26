@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad  } from '../../lib';
+import { customElement, waitForScriptLoad  } from '@lib';
 
 export default {
   title: 'Examples/QRCode'

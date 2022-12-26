@@ -1,4 +1,4 @@
-import { customElement } from '../../lib/custom-element';
+import { customElement } from '@lib';
 
 import {
   buttonCss, 

@@ -1,4 +1,4 @@
-import { customElement } from "../../../lib";
+import { customElement } from "@lib";
 
 export const htmlHTML = /*html*/ `
 <h2 class="fs-4">options.html</h2>

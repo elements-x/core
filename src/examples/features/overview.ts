@@ -1,4 +1,4 @@
-import { customElement } from '../../lib';
+import { customElement } from '@lib';
 
 customElement('hello-custom-element', {
   html: /*html*/ `<h1>{{hello}} {{world}}</h1>`,

@@ -1,4 +1,3 @@
-import { customElement  } from '../../lib';
 import buttonCss from './button.scss';
 import tableCss from './table.scss';
 import tooltipCss from './tooltip.scss';

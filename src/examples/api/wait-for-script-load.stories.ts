@@ -1,7 +1,7 @@
 export default { title: 'API/waitForScriptLoad()' };
 
 export const Primary = () => /*html*/ `
-  <h2> waitForScriptLoad(varName, scripts)</h2>
+  <h2 class="fs-3"><code> waitForScriptLoad(varName, scripts) : Promise</code></h2>
 
   <p>
     It returns a Promise after

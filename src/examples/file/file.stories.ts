@@ -1,4 +1,4 @@
-import { customElement  } from '../../lib';
+import { customElement  } from '@lib';
 import css from './file.scss';
 
 export default {

@@ -1,7 +1,6 @@
-import { customElement } from '../../lib';
+import { customElement, localDate } from '@lib';
 import css from './calendar.scss'; 
 import { rebuildCalendar } from './rebuild-calendar';
-import { localDate } from '../../lib/util';
 
 export default {
   title: 'Examples/Calendar'

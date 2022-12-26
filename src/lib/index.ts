@@ -1,3 +1,4 @@
 export * from './custom-element';
 export * from './types';
-export { waitForScriptLoad } from './util';
+export * from './types';
+export { waitForScriptLoad, localDate } from './util';

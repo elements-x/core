@@ -1,4 +1,4 @@
-import { customElement } from "../../../lib";
+import { customElement } from "@lib";
 
 export const callbacksHTML = /*html*/ `
 <h2 class="fs-4">callbacks</h2>

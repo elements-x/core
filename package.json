@@ -1,10 +1,12 @@
 {
   "name": "@elements-x/core",
+  "version": "0.1.0",
   "description": "Custom Element Build Engine",
   "scripts": {
     "start": "start-storybook --port 6006",
-    "build": "tsup src/lib/index.ts --dts --minify",
-    "build-storybook": "build-storybook --docs"
+    "build": "rimraf dist && npm run build:lib && npm run build:storybook",
+    "build:lib": "tsup src/lib/index.ts --dts --minify --out-dir dist/lib",
+    "build:storybook": "build-storybook --docs -o dist/storybook"
   },
   "repository": {
     "type": "git",
@@ -16,9 +18,9 @@
   "homepage": "https://github.com/elements-x/core#readme",
   "author": "allenhwkim@gmail.com",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/lib/index.js",
   "files": [
-    "dist"
+    "dist/lib"
   ],
   "devDependencies": {
     "@babel/core": "^7.20.5",
@@ -40,11 +42,13 @@
     "babel-loader": "^8.3.0",
     "css-loader": "^6.7.2",
     "html-to-image": "^1.10.9",
+    "http-server": "^14.1.1",
     "mustache": "^4.2.0",
     "raw-loader": "^4.0.2",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
     "ts-node": "^10.9.1",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
     "tsup": "^6.5.0"
   },
   "dependencies": {}

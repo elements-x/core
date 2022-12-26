@@ -11,7 +11,8 @@ export default { title: 'API/customElement()' };
 
 export const Primary = () =>/*html*/ `
 
-<h2> customElement(tagName, options)</h2>
+<h2 class="fs-3"><code> customElement(tagName, options) : HTMLElement </code></h2>
+It returns a HTMLElement, a custom element. These are options available.
 
 <x-highlight>
   export interface ICustomElementOptions {

@@ -1,4 +1,4 @@
-import { customElement } from '../../lib';
+import { customElement } from '@lib';
 
 function recursivePromiseChain(text, el, speed=100){
   const char = text.shift();

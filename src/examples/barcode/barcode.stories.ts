@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad  } from '../../lib';
+import { customElement, waitForScriptLoad  } from '@lib';
 
 declare global {
   interface Window {

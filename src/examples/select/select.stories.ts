@@ -1,4 +1,4 @@
-import { customElement } from '../../lib';
+import { customElement } from '@lib';
 import { highlightNext, highlightValue, highlightSearch } from './highlight';
 import css from './select.scss';
 

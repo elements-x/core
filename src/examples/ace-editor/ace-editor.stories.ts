@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad  } from "../../lib";
+import { customElement, waitForScriptLoad  } from "@lib";
 import css from './ace-editor.scss';
 
 export default {

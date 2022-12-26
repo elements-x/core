@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   staticDirs: ['../public'],
@@ -19,6 +20,7 @@ module.exports = {
 
     config.resolve = {
       ...config.resolve,
+      plugins: [new TsconfigPathsPlugin()],
       fallback: {
           ...(config.resolve || {}).fallback,
           fs: false,

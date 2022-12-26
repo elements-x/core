@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad } from '../../lib';
+import { customElement, waitForScriptLoad } from '@lib';
 
 function fixIndent(code) {
   code = code.replace(/^([ \t]*\n+){1,}|[\n\t ]+$/g, ''); // remove empty first/last line

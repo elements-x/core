@@ -1,4 +1,4 @@
-import { customElement } from '../../lib';
+import { customElement } from '@lib';
 
 customElement('my-event', {
   html: '<button x-style>Click Me</button`>',

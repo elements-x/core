@@ -1,4 +1,4 @@
-import { customElement } from '../../lib';
+import { customElement } from '@lib';
 import css from './textfield.scss';
 
 export default {
