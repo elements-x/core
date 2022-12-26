@@ -18,8 +18,8 @@ export const Overview = ({}) => /*html*/ `
   import { customElement } from '@elements-x/core';
 
   customElement('hello-custom-element', {
-    html: \`&lt;h1>{{hello}} {{world}}&lt;/h1>\`,
-    css: \`hello-custom-element { color: red; }\`,
+    html: \x60&lt;h1>{{hello}} {{world}}&lt;/h1>\x60,
+    css: \x60hello-custom-element { color: red; }\x60,
     attrs : { hello: 'Hello', world: 'Custom Element' }
   });
   </x-highlight>

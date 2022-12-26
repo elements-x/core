@@ -24,18 +24,16 @@ export const GettingStarted = () => {
 
     <table x-style="true">
       <tr>
-        <th>Without customElement() - Lit JS Example</th>
-        <th>With customElement()</th>
-      </tr>
-      <tr>
         <td>
+          <div class="head">Without customElement() - Lit JS Example</div>
           <x-highlight>
             import {html, css, LitElement} from 'lit';
             import {customElement, property} from 'lit/decorators.js';
 
             @customElement('hello-custom-element')
             export class HelloCustomElement extends LitElement {
-              static styles = css\`hello-custom-element { color: red; }\`;
+              static styles = 
+                css\x60hello-custom-element { color: red; }\x60;
 
               @property({ attribute: 'hello' })
               hello = 'Hello';
@@ -43,22 +41,26 @@ export const GettingStarted = () => {
               world = 'World';
 
               render() {
-                return html\`&lt;h1>\$\{hello} \$\{world}&lt;/h1>\`;
+                return html\x60&lt;h1>\$\{hello} \$\{world}&lt;/h1>\x60;
               }
             }
           </x-highlight>
-          A generic way without using a web component library such as LitJS is much more 
+          A generic way without using a web component library such as Lit JS is much more 
           compoicated than the above code to handle reactive property, css styling, and 
           observable attributes.
         </td>
         <td>
+          <div class="head">With customElement()</div>
           <x-highlight>
             import {customElement} from '@elements-x/core';
 
             customElement('hello-custom-element', {
               html: '&lt;h1>{{hello}} {{world}}&lt;/h1>',
               css:  'hello-custom-element { color: red; }',
-              attrs : { hello: 'Hello', world: 'Custom Element' }
+              attrs : {
+                hello: 'Hello',
+                world: 'Custom Element'
+              }
             });
           </x-highlight>
         </td>
@@ -80,7 +82,7 @@ export const GettingStarted = () => {
     
     <p>
       The following 20 lines of code would be enough to show an Openlayers map.
-      For fully working of this code, please visit <a href="/?path=/story/examples-map--map">this example</a>.
+      For demo. of this code, please visit <a href="/?path=/story/examples-map--map">this example</a>.
     </p>
     <x-highlight>
       customElement('x-map', {

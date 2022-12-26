@@ -1,7 +1,6 @@
 table[x-style] {
   max-width: 100%;
   border-collapse: collapse;
-  font-size: .9rem;
 
   tr:has(th) {
     background: #656565;
@@ -18,22 +17,13 @@ table[x-style] {
       font-weight: 600;
       text-align: inherit;
       color: #FFF;
-
-      &first-child {
-        border-left: 1px solid #656565;
-      }
-
-      &:last-child {
-        border-right: 1px solid #656565;
-      }
-
     }
   }
 
   tr:has(td) {
     background-color: #FFF;
 
-    &:nth-of-type(odd) {
+    &:nth-of-type(even) {
       background-color: #0000000d;
     }
 
@@ -45,9 +35,13 @@ table[x-style] {
       font-weight: 400;
       text-align: inherit;
 
-      &.title {
-        white-space: nowrap;
+      .head {
+        background: #656565;
+        color: #FFF;
+        padding: 8px 12px;
+        margin: -8px -12px 8px -12px;
       }
+
     }
   }
 }

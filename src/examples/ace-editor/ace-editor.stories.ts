@@ -5,6 +5,16 @@ export default {
   title: 'Examples/AceEditor'
 };
 
+function fixIndent(code) {
+  code = code.replace(/^([ \t]*\n+){1,}|[\n\t ]+$/g, ''); // remove empty first/last line
+  const firstIndent = (code.match(/^([ ]+)/) || [])[1];
+  if (firstIndent) {
+    const re = new RegExp(`^${firstIndent}`, 'gm');
+    return code.replace(re, '');
+  }
+  return code;
+}
+
 const js = /*javascript*/ ` 
   customElement('x-ace', {
     debug: true,
@@ -26,7 +36,7 @@ const js = /*javascript*/ `
       editor.session.setMode('ace/mode/' + this._props.mode);
       editor.session.setUseWrapMode(this._props.useWrapMode);
       editor.renderer.setScrollMargin(8, 8, 0, 0);
-      editor.setValue(this._props.orgInnerHTML);
+      editor.setValue(fixIndent(this._props.orgInnerHTML));
       editor.setOptions({maxLines: Infinity}); //Automatically adjust height to contents
       editor.clearSelection();
       editor.resize(true);
@@ -53,7 +63,8 @@ const demoHTML = (args?) => {
     }</x-ace>`
 };
 
-new Function('customElement', 'waitForScriptLoad', 'css', js)(customElement, waitForScriptLoad, css);
+new Function('customElement', 'waitForScriptLoad', 'css', 'fixIndent', js)
+  (customElement, waitForScriptLoad, css, fixIndent);
 
 const Template = (args) => {
   return `

@@ -6,9 +6,9 @@ export const Styling = () => /*html*/ `
 
   <x-highlight>
   customElement('my-element', {
-    css: \`my-element .some-class {
+    css: \x60my-element .some-class {
       font-weight: bold;
-    }\`
+    }\x60
   })
   </x-highlight>
 
