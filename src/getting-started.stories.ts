@@ -1,3 +1,5 @@
+import { customElement } from "./lib/custom-element";
+
 export default {
   title: 'Getting Started'
 };
@@ -22,8 +24,8 @@ export const GettingStarted = () => {
 
     <table x-style="true">
       <tr>
-        <th>Instead(Lit JS Example)</th>
-        <th>Do</th>
+        <th>Without customElement() - Lit JS Example</th>
+        <th>With customElement()</th>
       </tr>
       <tr>
         <td>
@@ -62,6 +64,45 @@ export const GettingStarted = () => {
         </td>
       </tr>
     </table>
+
+    <p class="pt-4">
+    For more practical use of custom element, saying you know how to use Openlayers, 
+    and you want to wrap Openlayers functionality to a simple map as a &lt;x-map> tag.
+    </p>
+
+    The folowing is the process of showing an Openlayers map.
+    <ol>
+      <li>Load Openlayers css and Javascript.</li>
+      <li>Initiazlie an Openlayers map to an element.</li>
+      <li>Add graphic layers to the map</li>
+      <li>Update center/zoom of the map from attribute</li>
+    </ol>
+    
+    <p>
+      The following 20 lines of code would be enough to show an Openlayers map.
+      For fully working of this code, please visit <a href="/?path=/story/examples-map--map">this example</a>.
+    </p>
+    <x-highlight>
+      customElement('x-map', {
+        await: () => waitForScriptLoad('ol', [
+          'https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js',
+          'https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css'
+        ]),
+        css: 'x-map {display: block; height: 300px;}',
+        attrs: {
+          center: 'Brampton Ontario, Canada',
+          zoom: {type: Number, default: 11}
+        },
+        async connectedCallback() {
+          const lonLat = await getLonLat(this._props.center);
+          const map = new window.ol.Map({ target: this });
+      
+          map.addLayer(new window.ol.layer.Tile({source: new window.ol.source.OSM()}));
+          map.getView().setCenter(window.ol.proj.fromLonLat(lonLat));
+          map.getView().setZoom(this._props.zoom);
+        }
+      });
+    </x-highlight>
   `
 };
 

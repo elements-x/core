@@ -177,7 +177,7 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
     debug(tagName, `addCss('${tagName}', options.css)`);
     addCss(tagName, <string>options.css, true);
   } else if (tagName && !customElements.get(tagName)) {
-    debug('customElements.define(', tagName, CustomElement, ')');
+    // debug('customElements.define(', tagName, CustomElement, ')');
     customElements.define(tagName, CustomElement);
   }
 
