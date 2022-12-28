@@ -39,25 +39,16 @@ import { Meta } from '@storybook/addon-docs';
   </div>
 </div>
 
-```javascript
-import { customElement } from '@elements-x/core';
+<p></p>
 
-customElement('my-element', {
-  html: '<h1>{{hello}} {{world}}</h1>',
-  css:  'my-element { color: red; }',
-  attrs : { hello: 'Hello', world: 'My Element' }
-});
-
-<my-element></my-element>
-```
-
-<iframe src="https://codesandbox.io/embed/hello-custom-element-p9tsc3?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=dark"
+<iframe src="https://codesandbox.io/embed/hello-custom-element-p9tsc3?fontsize=12&hidenavigation=1&module=%2Fsrc%2Findex.js&moduleview=1&theme=light"
   class="codesandbox"
   title="hello-custom-element"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  sandbox="allow-forms allow-presentation allow-same-origin allow-scripts"
  ></iframe>
 
-[![Edit hello-custom-element](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/hello-custom-element-p9tsc3?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=dark)
-
-
+<h3 class="my-4">Why customElement()?</h3>
+customElement() was designed primarily to speed up the creation of custom elements.
+Unlike others, Lit, Stencil, or any, this only uses custom elements to make the 
+coding structure as simple as possible without relying on Shadow DOM.
