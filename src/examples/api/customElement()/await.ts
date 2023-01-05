@@ -32,7 +32,7 @@ customElement('my-await-el', {
 
 
 <p>
-It also provides <code>waitForScriptLoad()</code> function, which returns a Promise.
+It also provides <code>customElement.waitForScriptLoad()</code> function, which returns a Promise.
 This is useful when your custom element requires certain libaries and/or css.
 </p>
 
@@ -42,7 +42,7 @@ which requires script to be initialized to <code>window.hljs</code> and styles t
 </p>
 
 <p>
-By providing these two scripts and <code>hljs</code> into <code>waitForScriptLoad()</code>, you are ready to use HighlightJs library.
+By providing these two scripts and <code>hljs</code> into <code>customElement.waitForScriptLoad()</code>, you are ready to use HighlightJs library.
 </p>
 <p>
 The hightlighted code on this page is done by the following code.
@@ -50,7 +50,7 @@ The hightlighted code on this page is done by the following code.
 
 <x-highlight>
 customElement('my-highlight', {
-  await: () => waitForScriptLoad('hljs', [
+  await: () => customElement.waitForScriptLoad('hljs', [
     'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-light.min.css',
   ]),

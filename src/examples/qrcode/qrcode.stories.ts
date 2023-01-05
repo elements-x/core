@@ -1,8 +1,10 @@
-import { customElement, waitForScriptLoad  } from '@lib';
+import { customElement } from '@lib';
 
 export default {
   title: 'Examples/QRCode'
 };
+
+const waitForScriptLoad = customElement.waitForScriptLoad;
 
 const js = /*javascript*/ ` 
   customElement('x-qrcode', {

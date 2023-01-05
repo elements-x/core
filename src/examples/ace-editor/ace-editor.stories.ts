@@ -1,9 +1,11 @@
-import { customElement, waitForScriptLoad  } from "@lib";
+import { customElement } from "@lib";
 import css from './ace-editor.scss';
 
 export default {
   title: 'Examples/AceEditor'
 };
+
+const waitForScriptLoad = customElement.waitForScriptLoad;
 
 function fixIndent(code) {
   code = code.replace(/^([ \t]*\n+){1,}|[\n\t ]+$/g, ''); // remove empty first/last line

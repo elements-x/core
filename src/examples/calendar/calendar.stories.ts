@@ -1,10 +1,12 @@
-import { customElement, localDate } from '@lib';
+import { customElement } from '@lib';
 import css from './calendar.scss'; 
 import { rebuildCalendar } from './rebuild-calendar';
 
 export default {
   title: 'Examples/Calendar'
 };
+
+const localDate = customElement.localDate;
 
 const js = /*javascript*/ `
 function changeHandler(event) { // Do not use arrow function here if 'this' is used

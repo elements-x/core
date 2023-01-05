@@ -1,7 +1,7 @@
-import { addCss, removeCss, setPropsFromAttributes, resetHTML } from './util';
+import { addCss, removeCss, setPropsFromAttributes, resetHTML, localDate, waitForScriptLoad } from './util';
 import { ICustomElementOptions } from './types';
 
-export function customElement(arg1: string | ICustomElementOptions, arg2?: ICustomElementOptions): any {
+function customElement(arg1: string | ICustomElementOptions, arg2?: ICustomElementOptions): any {
   const [tagName, options] = 
     typeof arg1 === 'string' ? [arg1, arg2] :
     typeof arg1 === 'object' ? [undefined, arg1] : [];
@@ -183,3 +183,8 @@ export function customElement(arg1: string | ICustomElementOptions, arg2?: ICust
 
   return CustomElement;
 }
+
+customElement.localDate = localDate;
+customElement.waitForScriptLoad = waitForScriptLoad;
+
+export { customElement };

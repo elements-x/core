@@ -1,4 +1,4 @@
-import { customElement, waitForScriptLoad  } from '@lib';
+import { customElement } from '@lib';
 
 declare global {
   interface Window {
@@ -9,6 +9,8 @@ declare global {
 export default {
   title: 'Examples/BarCode'
 };
+
+const waitForScriptLoad = customElement.waitForScriptLoad;
 
 window['setAttrs'] = (arr) => arr.forEach((el) => {
   const [selector, name, value] = el.split(',');

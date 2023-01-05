@@ -1,8 +1,10 @@
-import { customElement, waitForScriptLoad  } from '@lib';
+import { customElement } from '@lib';
 
 export default {
   title: 'Examples/Map'
 };
+
+const waitForScriptLoad = customElement.waitForScriptLoad;
 
 function getLonLat(address) {
   return new Promise( resolve => {
