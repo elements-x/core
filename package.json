@@ -5,7 +5,7 @@
   "scripts": {
     "start": "start-storybook --port 6006",
     "build": "rimraf dist && npm run build:lib && npm run build:storybook",
-    "build:lib": "tsup src/lib/index.ts --dts --minify --out-dir dist/lib",
+    "build:lib": "tsup src/lib/index.ts --format esm,cjs,iife --dts --minify --out-dir dist/lib",
     "build:storybook": "build-storybook --docs -o dist/storybook",
     "prepublish": "npm run build"
   },

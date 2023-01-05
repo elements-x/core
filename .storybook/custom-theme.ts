@@ -50,7 +50,7 @@ export default create({
 
   // Brand
   brandTitle: 'The simplest custom elements library',
-  brandUrl: '/',
+  brandUrl: 'https://github.com/elements-x/core',
   brandImage: '/logo.png',
   brandTarget: '_self',
 });
